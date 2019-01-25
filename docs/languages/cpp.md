@@ -4,7 +4,7 @@ Area: languages
 TOCTitle: C++
 ContentId: D06C8C5C-2D3A-4B2E-B31F-12F1907E6402
 PageTitle: C++ programming with Visual Studio Code
-DateApproved: 8/22/2017
+DateApproved: 1/11/2019
 MetaDescription: Find out how to get the best out of Visual Studio Code and C++.
 MetaSocialImage: images/cpp/languages_cpp.png
 ---
@@ -35,15 +35,17 @@ With the C/C++ extension installed, open a folder that contains your C/C++ sourc
 
 ### Configuring IntelliSense
 
-The extension will attempt to determine your folder's basic configuration info based on compilers it finds on your system. If for any reason, that configuration is incomplete, you can generate a `c_cpp_properties.json` file by running the **C/Cpp: Edit configurations** command from the **Command Palette** (`kb(workbench.action.showCommands)` and add the missing information.
+The extension will attempt to determine your folder's basic configuration info based on compilers it finds on your system. The extension can generate configurations for Windows, Mac, Linux, WSL, MinGW, and Cygwin based on the compiler path. On Windows, the compiler auto-detection logic first searches for MSVC, followed by WSL, MinGW, and then Cygwin.
+
+If the generated configuration is incomplete, you can generate a `c_cpp_properties.json` file by running the **C/Cpp: Edit configurations** command from the **Command Palette** (`kb(workbench.action.showCommands)` and add the missing information. 
 
 If a `#include` file or one of its dependencies cannot be found, you can also click on the red squiggles under the include statements to view suggestions for how to update your configuration.
 
 ![browse path light bulb](images/cpp/cpp-lightbulb.png)
 
-This will generate a `c_cpp_properties.json` file that allows you to add additional paths and defines to properly enable code navigation and auto-completion.
+This generates a `c_cpp_properties.json` file in which you can add additional paths and defines to enable code navigation and auto-completion.
 
-Below you can see that the MinGW C++ compiler has been set as the default compiler for Windows. The extension will use that information to determine the system include path and defines so that they don't need to be added to `c_cpp_properties.json`.
+Below you can see that the MinGW C++ compiler has been set as the default compiler for Windows. The extension uses that information to determine the system include path and defines so that they don't need to be added to `c_cpp_properties.json`.
 
 ```json
 {
@@ -67,9 +69,38 @@ Below you can see that the MinGW C++ compiler has been set as the default compil
 }
 ```
 
+To specify that the includePath should be searched recursively, append a `**` to the path:
+
+```json
+"includePath": [
+    "${workspaceFolder}/**",
+    "~/SystemA/libs/**"
+],
+```
+If the folder hierarchy contains headers with the same name in different folders, then add explicit paths to those folders before the recursive search path.
+
+#### Global IntelliSense settings
+
+You can set any of the IntelliSense settings in your user or workspace `settings.json` file. These settings automatically apply to any project (if set as user setting) or any projects in the same workspace (if set as workspace setting). The following user setting,ensures that for all folders and workspaces opened on your system, **c:/users/me/mylibs/include** is searched for headers:
+
+```json
+{
+    "C_cpp.default.includePath": [
+    "${workspaceFolder}/**",
+    "c:/users/me/mylib/include"
+    ]
+}
+```
+
+Settings defined in `c_cpp_properties.json` override any user or workspace settings. To use the defaults specified in the user or workspace setting, include `${default}` in the `includePath` setting in `c_cpp_properties.json` files.
+
+#### Vcpkg integration
+
+[Vcpkg](https://github.com/Microsoft/vcpkg) is a C++ library manager for Linux, macOS and Windows with over 900 open sourced libraries already supported. If your apps use 3rd party libraries, vcpkg provides an easy way to acquire them (see instructions on github). Once libraries are installed through vcpkg, run “vcpkg integrate install” command to make vcpkg visible to VS Code, and then the extension will automatically use the headers for IntelliSense.
+
 ### Building your code
 
-**If you want to build your application from VS Code, you will need to generate a `tasks.json` file:**
+To build your application from VS Code, you need to generate a `tasks.json` file:
 
 * Open the **Command Palette** (`kb(workbench.action.showCommands)`).
 * Select the **Tasks: Configure Task** command, click **Create tasks.json file from templates**, and you will see a list of task runner templates.
@@ -220,7 +251,7 @@ To specify additional include directories to be searched, place your cursor over
 
 ### Search for Symbols
 
-You can search for symbols in the current file or workspace to navigate your code more quickly.
+You can search for symbols in the current file or workspace to navigate your code more quickly. By default, system headers are not searched. To change this setting, go to **File** > **Preferences** > **Settings** and change the `C_Cpp.workspaceSymbols` value from "Just My Code" to "All".
 
 To search for a symbol in the current file, press `kb(workbench.action.gotoSymbol)`, then enter the name of the symbol you're looking for. A list of potential matches will appear and be filtered as you type. Choose from the list of matches to navigate to its location.
 
@@ -249,6 +280,12 @@ With the peek window open, you browse the list of competing definitions to find 
 You can also quickly navigate to where a symbol is defined by using the Go to Definition feature.
 
 To go to a symbol's definition, place your cursor on the symbol anywhere it is used in your source code and then press `kb(editor.action.revealDefinition)`. Alternatively, you can choose **Go to Definition** from the context menu (right-click, then choose **Go to Definition**). When there's only one definition of the symbol, you'll navigate directly to its location, otherwise the competing definitions are displayed in a peek window as described in the previous section and you have to choose the definition that you want to go to.
+
+## Code snippets
+
+The extension supports a set of C/C++ snippets that make it quicker to type C or C++ constructs such as class definitions or long if-then-elseif-else statements.
+
+![C/C++ code snippets](images/cpp/cpp-code-snippets.png)
 
 ## Debugging
 
