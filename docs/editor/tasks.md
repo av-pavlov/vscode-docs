@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: Tasks
 ContentId: F5EA1A52-1EF2-4127-ABA6-6CEF5447C608
 PageTitle: Tasks in Visual Studio Code
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Expand your development workflow with task integration in Visual Studio Code.
 ---
 # Integrate with External Tools via Tasks
@@ -39,14 +39,11 @@ code .
 Now create a `HelloWorld.ts` file with the following content
 
 ```ts
-class Startup {
-    public static main(): number {
-        console.log('Hello World');
-        return 0;
-    }
+function sayHello(name: string): void {
+    console.log(`Hello ${name}!`);
 }
 
-Startup.main();
+sayHello('Dave');
 ```
 
 Pressing `kb(workbench.action.tasks.build)` or running **Run Build Task** from the global **Terminal** menu show the following picker:
@@ -279,6 +276,7 @@ Sometimes you want to control how the Integrated Terminal panel behaves when run
   - *dedicated*: The terminal is dedicated to a specific task. If that task is executed again, the terminal is reused. However, the output of a different task is presented in a different terminal.
   - *new*: Every execution of that task is using a new clean terminal.
 - **clear**: Controls whether the terminal is cleared before this task is run. Default is `false`.
+- **group**: Controls whether the task is executed in a specific terminal group using split panes. Tasks in the same group (specified by a string value) will use split terminals to present instead of a new terminal panel.
 
 You can modify the terminal panel behavior for auto-detected tasks as well. For example, if you want to change the output behavior for the **npm: run lint** from the ESLint example from above, add the `presentation` property to it:
 

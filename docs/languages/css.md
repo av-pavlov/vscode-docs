@@ -4,7 +4,7 @@ Area: languages
 TOCTitle: CSS, SCSS and Less
 ContentId: 039882CB-B5C4-46BD-A8D5-DB24A5E82706
 PageTitle: CSS, SCSS, and Less support in Visual Studio Code
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Find out how Visual Studio Code can support your CSS, SCSS and Less development.
 ---
 # CSS, SCSS and Less
@@ -210,7 +210,7 @@ npm install gulp gulp-sass gulp-less
 
 > **Note:** `gulp-sass` and `gulp-less` are Gulp plug-ins for the `node-sass` and `lessc` modules we were using before. There are many other Gulp Sass and Less plug-ins you can use, as well as plug-ins for Grunt.
 
-You can test that your gulp installation was successful but typing `gulp -v`. You should see a version displayed for both the global (CLI) and local installations.
+You can test that your gulp installation was successful by typing `gulp -v`. You should see a version displayed for both the global (CLI) and local installations.
 
 ### Step 2: Create a simple Gulp task
 
@@ -223,17 +223,19 @@ Place the following code in the `gulpfile.js` file:
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 
-gulp.task('sass', function() {
+gulp.task('sass', function(cb) {
     gulp.src('*.scss')
         .pipe(sass())
         .pipe(gulp.dest(function(f) {
             return f.base;
-        }))
+        }));
+    cb();
 });
 
-gulp.task('default', ['sass'], function() {
-    gulp.watch('*.scss', ['sass']);
-})
+gulp.task('default', gulp.series('sass', function(cb) {
+    gulp.watch('*.scss', gulp.series('sass'));
+    cb();
+}));
 ```
 
 ```javascript
@@ -241,17 +243,19 @@ gulp.task('default', ['sass'], function() {
 var gulp = require('gulp');
 var less = require('gulp-less');
 
-gulp.task('less', function() {
+gulp.task('less', function(cb) {
     gulp.src('*.less')
         .pipe(less())
         .pipe(gulp.dest(function(f) {
             return f.base;
-        }))
+        }));
+    cb();
 });
 
-gulp.task('default', ['less'], function() {
-    gulp.watch('*.less', ['less']);
-})
+gulp.task('default', gulp.series('less', function(cb) {
+    gulp.watch('*.less', gulp.series('less'));
+    cb();
+}));
 ```
 
 What is happening here?

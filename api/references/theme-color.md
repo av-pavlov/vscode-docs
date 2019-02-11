@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 8e03996d-35e9-4e9f-a60e-50d0962231b8
-DateApproved: 12/6/2018
+DateApproved: 2/6/2019
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Theme Color reference that lists all themable colors in Visual Studio Code.
@@ -13,9 +13,9 @@ You can customize your active Visual Studio Code [color theme](/docs/getstarted/
 
 ```json
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#00AA00"
-    }
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#00AA00"
+  }
 }
 ```
 
@@ -136,6 +136,9 @@ Colors for list and trees like the File Explorer. An active list/tree has keyboa
 - `list.invalidItemForeground`: List/Tree foreground color for invalid items, for example an unresolved root in explorer.
 - `list.errorForeground`: Foreground color of list items containing errors.
 - `list.warningForeground`: Foreground color of list items containing warnings.
+- `listFilterWidget.background`: List/Tree Filter background color of typed text when searching inside the list/tree.
+- `listFilterWidget.outline`: List/Tree Filter Widget's outline color of typed text when searching inside the list/tree.
+- `listFilterWidget.noMatchesOutline`: List/Tree Filter Widget's outline color when no match is found of typed text when searching inside the list/tree.
 
 ## Activity Bar
 
@@ -169,23 +172,23 @@ Editor Groups are the containers of editors. There can be many editor groups. A 
 
 - `editorGroup.border`: Color to separate multiple editor groups from each other.
 
-    ![editorGroup.border](images/theme-color/editorGroup-border.gif)
+  ![editorGroup.border](images/theme-color/editorGroup-border.gif)
 
 - `editorGroup.dropBackground`: Background color when dragging editors around.
 
-    ![editorGroup.dropBackground](images/theme-color/editorGroup-dropbackground.gif)
+  ![editorGroup.dropBackground](images/theme-color/editorGroup-dropbackground.gif)
 
 - `editorGroupHeader.noTabsBackground`: Background color of the editor group title header when Tabs are disabled (set `"workbench.editor.showTabs": false`).
 
-    ![editorGroupHeader.noTabsBackground](images/theme-color/editorgroupheader-notabsbackground.gif)
+  ![editorGroupHeader.noTabsBackground](images/theme-color/editorgroupheader-notabsbackground.gif)
 
 - `editorGroupHeader.tabsBackground`: Background color of the Tabs container.
 
-    ![editorGroupHeader.tabsBackground](images/theme-color/editorgroupheader-tabsbackground.gif)
+  ![editorGroupHeader.tabsBackground](images/theme-color/editorgroupheader-tabsbackground.gif)
 
 - `editorGroupHeader.tabsBorder`: Border color of the editor group title header when tabs are enabled.
 
-    ![editorGroupHeader.tabsBorder](images/theme-color/editorgroupheader-tabsborder.gif)
+  ![editorGroupHeader.tabsBorder](images/theme-color/editorgroupheader-tabsborder.gif)
 
 - `editorGroup.emptyBackground`: Background color of an empty editor group.
 - `editorGroup.focusedEmptyBorder`: Border color of an empty editor group that is focused.
@@ -208,10 +211,11 @@ Editor Groups are the containers of editors. There can be many editor groups. A 
 - `tab.inactiveModifiedBorder`: Border on the top of modified (dirty) inactive tabs in an active group.
 - `tab.unfocusedActiveModifiedBorder`: Border on the top of modified (dirty) active tabs in an unfocused group.
 - `tab.unfocusedInactiveModifiedBorder`: Border on the top of modified (dirty) inactive tabs in an unfocused group.
+- `editorPane.background`: Background color of the editor pane visible on the left and right side of the centered editor layout.
 
 ## Editor colors
 
-The most prominent editor colors are the token colors used for syntax highlighting and are based on the language grammar installed. These colors are defined by the Color Theme but can also be customized with the `editor.tokenColorCustomizations` setting. See [Customizing a Color Theme](/docs/getstarted/themes#customizing-a-color-theme) for  details on updating a Color Theme and the available token types.
+The most prominent editor colors are the token colors used for syntax highlighting and are based on the language grammar installed. These colors are defined by the Color Theme but can also be customized with the `editor.tokenColorCustomizations` setting. See [Customizing a Color Theme](/docs/getstarted/themes#_customizing-a-color-theme) for details on updating a Color Theme and the available token types.
 
 All other editor colors are listed here:
 
@@ -228,17 +232,17 @@ Selection colors are visible when selecting one or more characters. In addition 
 
 - `editor.selectionBackground`: Color of the editor selection.
 - `editor.selectionForeground`: Color of the selected text for high contrast.
-- `editor.inactiveSelectionBackground`: Color of the selection in an inactive editor. The color must not be opaque to not hide underlying decorations.
-- `editor.selectionHighlightBackground`: Color for regions with the same content as the selection. The color must not be opaque to not hide underlying decorations.
+- `editor.inactiveSelectionBackground`: Color of the selection in an inactive editor. The color must not be opaque so as not to hide underlying decorations.
+- `editor.selectionHighlightBackground`: Color for regions with the same content as the selection. The color must not be opaque so as not to hide underlying decorations.
 - `editor.selectionHighlightBorder`: Border color for regions with the same content as the selection.
 
 Word highlight colors are visible when the cursor is inside a symbol or a word. Depending on the language support available for the file type, all matching references and declarations are highlighted and read and write accesses get different colors. If document symbol language support is not available, this falls back to word highlighting.
 
 ![occurrences](images/theme-color/occurrences.png)
 
-- `editor.wordHighlightBackground`: Background color of a symbol during read-access, for example when reading a variable. The color must not be opaque to not hide underlying decorations.
+- `editor.wordHighlightBackground`: Background color of a symbol during read-access, for example when reading a variable. The color must not be opaque so as not to hide underlying decorations.
 - `editor.wordHighlightBorder`: Border color of a symbol during read-access, for example when reading a variable.
-- `editor.wordHighlightStrongBackground`: Background color of a symbol during write-access, for example when writing to a variable. The color must not be opaque to not hide underlying decorations.
+- `editor.wordHighlightStrongBackground`: Background color of a symbol during write-access, for example when writing to a variable. The color must not be opaque so as not to hide underlying decorations.
 - `editor.wordHighlightStrongBorder`: Border color of a symbol during write-access, for example when writing to a variable.
 
 Find colors depend on the current find string in the Find/Replace dialog.
@@ -246,8 +250,8 @@ Find colors depend on the current find string in the Find/Replace dialog.
 ![Find matches](images/theme-color/findmatches.png)
 
 - `editor.findMatchBackground`: Color of the current search match.
-- `editor.findMatchHighlightBackground`: Color of the other search matches. The color must not be opaque to not hide underlying decorations.
-- `editor.findRangeHighlightBackground`: Color the range limiting the search (Enable 'Find in Selection' in the find widget). The color must not be opaque to not hide underlying decorations.
+- `editor.findMatchHighlightBackground`: Color of the other search matches. The color must not be opaque so as not to hide underlying decorations.
+- `editor.findRangeHighlightBackground`: Color the range limiting the search (Enable 'Find in Selection' in the find widget). The color must not be opaque so as not to hide underlying decorations.
 - `editor.findMatchBorder`: Border color of the current search match.
 - `editor.findMatchHighlightBorder`: Border color of the other search matches.
 - `editor.findRangeHighlightBorder`: Border color the range limiting the search (Enable 'Find in Selection' in the find widget).
@@ -256,7 +260,7 @@ The hover highlight is shown behind the symbol for which a hover is shown.
 
 ![Hover Highlight](images/theme-color/hoverhighlight.png)
 
-- `editor.hoverHighlightBackground`: Highlight below the word for which a hover is shown. The color must not be opaque to not hide underlying decorations.
+- `editor.hoverHighlightBackground`: Highlight below the word for which a hover is shown. The color must not be opaque so as not to hide underlying decorations.
 
 The current line is typically shown as either background highlight or a border (not both).
 
@@ -275,7 +279,7 @@ The range highlight is visible when selecting a search result.
 
 ![Range Highlight](images/theme-color/rangehighlight.png)
 
-- `editor.rangeHighlightBackground`: Background color of highlighted ranges, used by Quick Open, Symbol in File and Find features. The color must not be opaque to not hide underlying decorations.
+- `editor.rangeHighlightBackground`: Background color of highlighted ranges, used by Quick Open, Symbol in File and Find features. The color must not be opaque so as not to hide underlying decorations.
 - `editor.rangeHighlightBorder`: Background color of the border around highlighted ranges.
 
 To see the editor white spaces, enable **Toggle Render Whitespace**.
@@ -309,11 +313,11 @@ Overview ruler:
 This ruler is located beneath the scroll bar on the right edge of the editor and gives an overview of the decorations in the editor.
 
 - `editorOverviewRuler.border`: Color of the overview ruler border.
-- `editorOverviewRuler.findMatchForeground`: Overview ruler marker color for find matches. The color must not be opaque to not hide underlying decorations.
-- `editorOverviewRuler.rangeHighlightForeground`: Overview ruler marker color for highlighted ranges, like by the Quick Open, Symbol in File and Find features. The color must not be opaque to not hide underlying decorations.
-- `editorOverviewRuler.selectionHighlightForeground`: Overview ruler marker color for selection highlights. The color must not be opaque to not hide underlying decorations.
-- `editorOverviewRuler.wordHighlightForeground`: Overview ruler marker color for symbol highlights. The color must not be opaque to not hide underlying decorations.
-- `editorOverviewRuler.wordHighlightStrongForeground`: Overview ruler marker color for write-access symbol highlights. The color must not be opaque to not hide underlying decorations.
+- `editorOverviewRuler.findMatchForeground`: Overview ruler marker color for find matches. The color must not be opaque so as not to hide underlying decorations.
+- `editorOverviewRuler.rangeHighlightForeground`: Overview ruler marker color for highlighted ranges, like by the Quick Open, Symbol in File and Find features. The color must not be opaque so as not to hide underlying decorations.
+- `editorOverviewRuler.selectionHighlightForeground`: Overview ruler marker color for selection highlights. The color must not be opaque so as not to hide underlying decorations.
+- `editorOverviewRuler.wordHighlightForeground`: Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations.
+- `editorOverviewRuler.wordHighlightStrongForeground`: Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.
 - `editorOverviewRuler.modifiedForeground`: Overview ruler marker color for modified content.
 - `editorOverviewRuler.addedForeground`: Overview ruler marker color for added content.
 - `editorOverviewRuler.deletedForeground`: Overview ruler marker color for deleted content.
@@ -335,8 +339,8 @@ Errors and warnings:
 
 Unused source code:
 
-- `editorUnnecessaryCode.border`: Border of unnecessary (unused) source code in the editor.
-- `editorUnnecessaryCode.opacity`: Opacity of unnecessary (unused) source code in the editor.
+- `editorUnnecessaryCode.border`: Border color of unnecessary (unused) source code in the editor.
+- `editorUnnecessaryCode.opacity`: Opacity of unnecessary (unused) source code in the editor. For example, `"#000000c0"` will render the code with 75% opacity. For high contrast themes, use the `"editorUnnecessaryCode.border"` theme color to underline unnecessary code instead of fading it out.
 
 The gutter contains the glyph margins and the line numbers:
 
@@ -349,9 +353,9 @@ The gutter contains the glyph margins and the line numbers:
 
 For coloring inserted and removed text, use either a background or a border color but not both.
 
-- `diffEditor.insertedTextBackground`: Background color for text that got inserted. The color must not be opaque to not hide underlying decorations.
+- `diffEditor.insertedTextBackground`: Background color for text that got inserted. The color must not be opaque so as not to hide underlying decorations.
 - `diffEditor.insertedTextBorder`: Outline color for the text that got inserted.
-- `diffEditor.removedTextBackground`: Background color for text that got removed. The color must not be opaque to not hide underlying decorations.
+- `diffEditor.removedTextBackground`: Background color for text that got removed. The color must not be opaque so as not to hide underlying decorations.
 - `diffEditor.removedTextBorder`: Outline color for text that got removed.
 - `diffEditor.border`: Border color between the two text editors.
 
@@ -411,13 +415,13 @@ Merge conflict decorations are shown when the editor contains special diff range
 
 ![Merge ranges](images/theme-color/merge-ranges.png)
 
-- `merge.currentHeaderBackground`: Current header background in inline merge conflicts. The color must not be opaque to not hide underlying decorations.
-- `merge.currentContentBackground`: Current content background in inline merge conflicts. The color must not be opaque to not hide underlying decorations.
-- `merge.incomingHeaderBackground`: Incoming header background in inline merge conflicts. The color must not be opaque to not hide underlying decorations.
-- `merge.incomingContentBackground`: Incoming content background in inline merge conflicts. The color must not be opaque to not hide underlying decorations.
+- `merge.currentHeaderBackground`: Current header background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.
+- `merge.currentContentBackground`: Current content background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.
+- `merge.incomingHeaderBackground`: Incoming header background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.
+- `merge.incomingContentBackground`: Incoming content background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.
 - `merge.border`: Border color on headers and the splitter in inline merge conflicts.
-- `merge.commonContentBackground`: Common ancestor content background in inline merge-conflicts. The color must not be opaque to not hide underlying decorations.
-- `merge.commonHeaderBackground`: Common ancestor header background in inline merge-conflicts. The color must not be opaque to not hide underlying decorations.
+- `merge.commonContentBackground`: Common ancestor content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.
+- `merge.commonHeaderBackground`: Common ancestor header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.
 - `editorOverviewRuler.currentContentForeground`: Current overview ruler foreground for inline merge conflicts.
 - `editorOverviewRuler.incomingContentForeground`: Incoming overview ruler foreground for inline merge conflicts.
 - `editorOverviewRuler.commonContentForeground`: Common ancestor overview ruler foreground for inline merge conflicts.
@@ -551,6 +555,7 @@ If you target VS Code versions before the 1.21 (February 2018) release, these ar
 
 ## Welcome page
 
+- `welcomePage.background`: Background color for the Welcome page.
 - `welcomePage.buttonBackground`: Background color for the buttons on the Welcome page.
 - `welcomePage.buttonHoverBackground`: Hover background color for the buttons on the Welcome page.
 - `walkThrough.embeddedEditorBackground`: Background color for the embedded editors on the Interactive Playground.
@@ -589,7 +594,9 @@ If you target VS Code versions before the 1.21 (February 2018) release, these ar
 
 The theme colors for breadcrumbs navigation:
 
+- `breadcrumb.background`: Background color of breadcrumb.
 - `breadcrumb.foreground`: Color of breadcrumb items.
+- `breadcrumb.background`: Background color of breadcrumb items.
 - `breadcrumb.focusForeground`: Color of focused breadcrumb items.
 - `breadcrumb.activeSelectionForeground`: Color of selected breadcrumb items.
 - `breadcrumbPicker.background`: Background color of breadcrumb item picker.
@@ -603,8 +610,8 @@ The theme colors for snippets:
 - `editor.snippetFinalTabstopHighlightBackground`: Highlight background color of the final tabstop of a snippet.
 - `editor.snippetFinalTabstopHighlightBorder`: Highlight border color of the final tabstop of a snippet.
 
-Color ids can also be contributed by extensions through the [color contribution point](/api/references/contribution-points#contributes.colors). These colors also appear when using code complete in the `workbench.colorCustomizations` settings and the color theme definition file. Users can see what colors an extension defines in the [extension contributions](/docs/editor/extension-gallery#extensiondetails) tab.
+Color ids can also be contributed by extensions through the [color contribution point](/api/references/contribution-points#contributes.colors). These colors also appear when using code complete in the `workbench.colorCustomizations` settings and the color theme definition file. Users can see what colors an extension defines in the [extension contributions](/docs/editor/extension-gallery#_extension-details) tab.
 
 ## Extension colors
 
-Color ids can also be contributed by extensions through the [color contribution point](/api/references/contribution-points#contributescolors). These colors also appear when using code complete in the `workbench.colorCustomizations` settings and the color theme definition file. Users can see what colors an extension defines in the [extension contributions](/docs/editor/extension-gallery#extensiondetails) tab.
+Color ids can also be contributed by extensions through the [color contribution point](/api/references/contribution-points#contributes.colors). These colors also appear when using code complete in the `workbench.colorCustomizations` settings and the color theme definition file. Users can see what colors an extension defines in the [extension contributions](/docs/editor/extension-gallery#_extension-details) tab.

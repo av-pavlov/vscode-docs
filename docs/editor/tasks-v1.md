@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: Tasks
 ContentId: 8cdc7d99-6339-49ac-9a31-55f6563fab5c
 PageTitle: Visual Studio Code Tasks (legacy version)
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Expand your development workflow with task integration in Visual Studio Code (Gulp, Grunt, Jake and more).
 ---
 # Tasks (legacy version)
@@ -75,7 +75,7 @@ To see the exact command VS Code is running, you can enable the `echoCommand` se
 
 ![tasks echoCommand](images/tasks/tasks-echoCommand.png)
 
->**Note:** VS Code ships with predefined `tasks.json` templates to run npm, MSBuild, maven and other command line tools. A great way to learn about tasks is to review these templates and see which tools or task runners are similar to other tools you may be using.
+>**Note:** VS Code ships with predefined `tasks.json` templates to run npm, MSBuild, Maven and other command line tools. A great way to learn about tasks is to review these templates and see which tools or task runners are similar to other tools you may be using.
 
 ## command and tasks[]
 

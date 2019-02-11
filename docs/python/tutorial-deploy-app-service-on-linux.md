@@ -4,7 +4,7 @@ Area: python
 TOCTitle: Deploy to Azure App Service
 ContentId: 1d4ae3ac-5d53-4e29-bf70-d97f1186c6c2
 PageTitle: Deploy Python web apps to Azure App Service on Linux
-DateApproved: 10/24/2018
+DateApproved: 01/14/2019
 MetaDescription: How to deploy Python web apps to Azure App Service on Linux
 MetaSocialImage: images/tutorial/social.png
 ---
@@ -24,7 +24,7 @@ If you encounter any problems in the course of this tutorial, feel free to file 
 
 ## Prerequisites
 
-To complete this tutorial you need an Azure account, Visual Studio Code with the Azure App Service extension, a Python environment, and an app that you'd like to deploy.
+To complete this tutorial, you need an Azure account, Visual Studio Code with the Azure App Service extension, a Python environment, and an app that you'd like to deploy.
 
 ### Azure account
 
@@ -32,7 +32,7 @@ If you don't have an Azure account, [sign up now](https://azure.microsoft.com/fr
 
 ### Visual Studio Code, Python, and the Azure App Service extension
 
-Install the following:
+Install the following software:
 
 - [Visual Studio Code](https://code.visualstudio.com/).
 - Python and the [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) extension as described on [Python Tutorial - Prerequisites](/docs/python/python-tutorial.md).
@@ -99,7 +99,7 @@ If you don't already have an app you'd like to work with, use one of the options
 
 1. After a short time you see a message that the new App Service was created, along with the question **Deploy to web app?**. Answer **No** at this point because you need to change the deployment source to Git. Otherwise the "Deploy to Web App" command only copies your files to the server using a ZIP file and doesn't install your dependencies.
 
-    ![Messages that appear after the App Service is create](images/deploy-azure/app-service-created.png)
+    ![Messages that appear after the App Service is created](images/deploy-azure/app-service-created.png)
 
 1. To confirm that the App Service is running properly, expand your subscription in the **Azure: App Service** explorer, right-click the App Service name, and select **Browse website**:
 
@@ -128,11 +128,11 @@ If you need a custom startup file, first create the file and commit it to your r
 
     ![Open Settings in Portal command in the App Service explorer](images/deploy-azure/open-settings-in-portal-command.png)
 
-1. In the Azure portal, sign in if necessary; then on the **Application settings** page, enter your startup file name under **Runtime** > **Startup File**, then select **Save**. (This is the one case in which you need to visit the Azure portal.)
+1. In the Azure portal, sign in if necessary; then on the **Application settings** page, enter your startup file name (like `startup.txt`) under **Runtime** > **Startup File**, then select **Save**. (This step is the one case in which you need to visit the Azure portal.)
 
-    ![Setting the startup file name in the Azure Portal](images/deploy-azure/azure-portal-startup-file.png)
+    ![Setting the startup file name in the Azure portal](images/deploy-azure/azure-portal-startup-file.png)
 
-1. The App Service restarts when you save changes. Because you still haven't deployed your app code, however, visiting the site at this point shows "Service Unavailable." This message indicates that the Gunicorn server started but failed to find the app, and therefore nothing is responding to HTTP requests.
+1. The App Service restarts when you save changes. Because you still haven't deployed your app code, however, visiting the site at this point shows "Application Error." This message indicates that the Gunicorn server started but failed to find the app, and therefore nothing is responding to HTTP requests.
 
 > **Note**: Instead of using a startup command file, you can also put the startup command directly in the **Startup File** field on the Azure portal. Using a file is generally preferable, however, as it keeps this bit of configuration in your repository where you can audit changes and redeploy to a different App Service instance altogether.
 
@@ -152,7 +152,7 @@ By default, the App Service on Linux container assumes that a Flask app's startu
     gunicorn --bind=0.0.0.0 --timeout 600 --chdir myapp website:app
     ```
 
-1. **Startup file is within a module**: in the [python-sample-vscode-flask-tutorial](https://github.com/Microsoft/python-sample-vscode-flask-tutorial) code, the `webapp.py` startup file is contained within the folder `hello_app`, which is itself a module with an `__init__.py` file. The app object is named `app` and is defined in `__init__.py` and `webapp.py` uses a relative import. Because of this arrangement, pointing Gunicorn to `webapp:app` produces a "Attempted relative import in non-package" error and the app fails to start.
+1. **Startup file is within a module**: in the [python-sample-vscode-flask-tutorial](https://github.com/Microsoft/python-sample-vscode-flask-tutorial) code, the `webapp.py` startup file is contained within the folder `hello_app`, which is itself a module with an `__init__.py` file. The app object is named `app` and is defined in `__init__.py` and `webapp.py` uses a relative import. Because of this arrangement, pointing Gunicorn to `webapp:app` produces the error, "Attempted relative import in non-package," and the app fails to start.
 
     In this situation, create a simple shim file that imports the app object from the module, and then have Gunicorn launch the app using the shim. The [python-sample-vscode-flask-tutorial](https://github.com/Microsoft/python-sample-vscode-flask-tutorial) code, for example, contains `startup.py` with the following contents:
 
@@ -199,7 +199,7 @@ As noted earlier, you must deploy to App Service on Linux using Git in order for
 
     ![Opening the repository after initialization](images/deploy-azure/source-control-open-repository.png)
 
-1. In the **Source Control** explorer you see your project files ready to commit to the repository. Enter a commit message like "Initial commit", then select the checkmark button:
+1. In the Source Control explorer, you see your project files ready to commit to the repository. Enter a commit message like "Initial commit", then select the checkmark button:
 
     ![Commit the app code to source control](images/deploy-azure/source-control-commit.png)
 
@@ -219,11 +219,11 @@ As mentioned earlier, you must use Git to deploy Python apps to App Service on L
 
     - **GitHub**: code is deployed from the selected branch of a GitHub repository, and happens automatically when you push commits to the repository. Selecting this option successively prompts you for the organization, repository, and branch to use.
 
-1. With both choices, the extension connects the App Service to the repository. You don't see indications of the connection in VS Code itself; on the Azure portal, you can examine the connect on the Azure portal in the App Service's **Deployment** > **Deployment options** page.
+1. With both choices, the extension connects the App Service to the repository. You don't see indications of the connection in VS Code itself; on the Azure portal, you can examine the connect on the Azure portal in the App Service's **Deployment Center** page.
 
 1. To deploy the app:
 
-    - **LocalGit**: Commit your changes to your local repository, then right-click the App Service again, select **Deploy to Web App**, and select the project folder when prompted. (You can also select use the deploy button at the top of the explorer.)
+    - **LocalGit**: Commit your changes to your local repository, then right-click the App Service again, select **Deploy to Web App**, and select the project folder when prompted. (You can also select the deploy button at the top of the explorer.)
 
         ![Deploy to Web App command on an App Service in the App Service explorer](images/deploy-azure/deploy-to-web-app-command.png)
 
@@ -243,7 +243,7 @@ As mentioned earlier, you must use Git to deploy Python apps to App Service on L
 
     ![Checking deployment files through the App Service explorer](images/deploy-azure/expand-files-node.png)
 
-    You can also expand the `antenv` folder, which is where App Service creates a virtual environment with your dependencies, and verify that the packages you named in `requirements.txt` are installed in `antenv/lib/python3.7/site-packages`.
+    The `antenv` folder is where App Service creates a virtual environment with your dependencies. If you expand this node, you can verify that the packages you named in `requirements.txt` are installed in `antenv/lib/python3.7/site-packages`.
 
 1. Right-click the App Service again and select **Browse Website** to view your running app (you may need to refresh the browser if the previous page was cached):
 
@@ -283,7 +283,7 @@ When you use the App Service extension in VS Code to set GitHub as the deploymen
 
 Congratulations on completing this walkthrough of deploying Python code to App Service on Linux!
 
-As noted earlier, you can learn more about the App Service extension by visiting its GitHub repository, [vscode-azureappservice](https://github.com/Microsoft/vscode-azureappservice). Issues and contributions are also very welcome.
+As noted earlier, you can learn more about the App Service extension by visiting its GitHub repository, [vscode-azureappservice](https://github.com/Microsoft/vscode-azureappservice). Issues and contributions are also welcome.
 
 To learn more about Azure services that you can use from Python, including data storage along with AI and Machine Learning services, visit [Azure Python Developer Center](https://docs.microsoft.com/python/azure/?view=azure-python).
 

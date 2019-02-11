@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 113b458a-3692-4ccf-a181-048bd572a120
-DateApproved: 12/6/2018
+DateApproved: 2/6/2019
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: A guide to creating Color Theme in Visual Studio Code
@@ -20,7 +20,7 @@ This guide will cover the different ways in which you can create themes.
 
 The easiest way to create a new workbench color theme is to start with an existing color theme and customize it. First switch to the color theme that you want to modify, then open your [settings](/docs/getstarted/settings) and make changes to the `workbench.colorCustomizations` setting. Changes are applied live to your VS Code instance.
 
-The following, for example,  would change the color of the title bar:
+The following, for example, would change the color of the title bar:
 
 ```json
 {
@@ -85,36 +85,19 @@ You can also use an existing TextMate theme by telling the extension generator t
 }
 ```
 
->**Tip:** Give your color definition file the `.color-theme.json` suffix and you will get hovers, code completion, color decorators, and color pickers when editing.
+> **Tip:** Give your color definition file the `.color-theme.json` suffix and you will get hovers, code completion, color decorators, and color pickers when editing.
 
->**Tip:** [ColorSublime](https://colorsublime.github.io) has hundreds of existing TextMate themes to choose from.  Pick a theme you like and copy the Download link to use in the Yeoman generator or into your extension. It will be in a format like `"https://raw.githubusercontent.com/Colorsublime/Colorsublime-Themes/master/themes/(name).tmTheme"`
+> **Tip:** [ColorSublime](https://colorsublime.github.io) has hundreds of existing TextMate themes to choose from. Pick a theme you like and copy the Download link to use in the Yeoman generator or into your extension. It will be in a format like `"https://raw.githubusercontent.com/Colorsublime/Colorsublime-Themes/master/themes/(name).tmTheme"`
 
 ## Test a new Color Theme
 
-To try out the new theme, first create a `.vscode/launch.json` file:
+To try out the new theme, press F5 to launch an Extension Development Host window.
 
-```json
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "theme",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceRoot}"
-      ]
-    }
-  ]
-}
-```
-
-Then open the Color Theme picker theme with **File** > **Preferences** > **Color Theme** and you can see your theme in the drop-down list. Arrow up and down to see a live preview of your theme.
+There, open the Color Theme picker theme with **File** > **Preferences** > **Color Theme** and you can see your theme in the drop-down list. Arrow up and down to see a live preview of your theme.
 
 ![select my theme](images/color-theme/mytheme.png)
 
-After making changes to any theme file, it is necessary to reload VS Code with the **Reload Window** command.
+Changes to the theme file are applied live in the `Extension Development Host` window.
 
 ## Publishing a Theme to the Extension Marketplace
 
@@ -126,7 +109,7 @@ We also have recommendations on how to make your extension look great on the VS 
 
 ## Adding a new Color Ids
 
-Color ids can also be contributed by extensions through the [color contribution point](/api/references/contribution-points#contributes.colors). These colors also appear when using code complete in the `workbench.colorCustomizations` settings and the color theme definition file. Users can see what colors an extension defines in the [extension contributions](/docs/editor/extension-gallery#extensiondetails) tab.
+Color ids can also be contributed by extensions through the [color contribution point](/api/references/contribution-points#contributes.colors). These colors also appear when using code complete in the `workbench.colorCustomizations` settings and the color theme definition file. Users can see what colors an extension defines in the [extension contributions](/docs/editor/extension-gallery#_extension-details) tab.
 
 ## Further reading
 

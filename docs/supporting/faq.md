@@ -2,7 +2,7 @@
 TOCTitle: FAQ
 ContentId: E02F97FD-842B-4D27-B461-37DD18B2582E
 PageTitle: Visual Studio Code Frequently Asked Questions
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Visual Studio Code Frequently Asked Questions
 ---
 # Visual Studio Code FAQ
@@ -98,7 +98,7 @@ If you have updated to macOS 10.14 (Mojave), you might have noticed that fonts i
 A workaround for this is to run:
 
 ```bash
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+defaults write com.microsoft.VSCode.helper CGFontRenderingFontSmoothingDisabled -bool NO
 ```
 
 from a terminal followed by restarting your computer.

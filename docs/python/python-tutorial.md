@@ -4,7 +4,7 @@ Area: python
 TOCTitle: Tutorial
 ContentId: 77828f36-ae45-4887-b25c-34545edd52d3
 PageTitle: Get Started Tutorial for Python in Visual Studio Code
-DateApproved: 11/26/2018
+DateApproved: 01/29/2019
 MetaDescription: A Python hello world tutorial using the Python extension in Visual Studio Code (a great Python IDE like PyCharm, if not the best Python IDE)
 MetaSocialImage: images/tutorial/social.png
 ---
@@ -20,7 +20,7 @@ If you have any problems, feel free to file an issue for this tutorial in the [V
 
 ## Prerequisites
 
-To successfully complete this tutorial, you must do the following:
+To successfully complete this tutorial, complete the following requirements:
 
 1. Install the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python).
 
@@ -30,7 +30,7 @@ To successfully complete this tutorial, you must do the following:
    - (macOS) An installation through [Homebrew](https://brew.sh/) on macOS using `brew install python3` (the system install of Python on macOS is not supported).
    - (All operating systems) A download from [Anaconda](https://www.anaconda.com/download/) (for data science purposes).
 
-1. On Windows, make sure the location of your Python interpreter is included in your PATH environment variable. You can check this by running `path` at the command prompt. If the Python interpreter's folder isn't included, open Windows Settings, search for "environment", select **Edit environment variables for your account**, then edit the **Path** variable to include that folder.
+1. On Windows, make sure the location of your Python interpreter (that is, the folder where it's installed, like `c:\python32`) is included in your PATH environment variable. You can check the location by running `path` at the command prompt. If the Python interpreter's folder isn't included, open Windows Settings, search for "environment", select **Edit environment variables for your account**, then edit the **Path** variable to include that folder.
 
 1. On MacOS, make sure the location of your VS Code installation is included in your PATH environment variable.  See [the setup instructions](/docs/setup/mac.md#launching-from-the-command-line) for more information.
 
@@ -56,7 +56,7 @@ From within VS Code, select a Python 3 interpreter by opening the **Command Pale
 
 ![No interpreter selected](images/environments/no-interpreter-selected-statusbar.png)
 
-The command presents a list of available interpreters that VS Code can find automatically. If you don't see the desired interpreter, see [Configuring Python environments](/docs/python/environments.md).
+The command presents a list of available interpreters that VS Code can find automatically, including virtual environments. If you don't see the desired interpreter, see [Configuring Python environments](/docs/python/environments.md).
 
 Selecting an interpreter sets the `python.pythonPath` value in your workspace settings to the path of the interpreter. To see the setting, select **File** > **Preferences** > **Settings** (**Code** > **Preferences** > **Settings** on macOS), then select the **Workspace Settings** tab.
 
@@ -105,14 +105,14 @@ The command opens a terminal panel in which your Python interpreter is automatic
 
 There are two other ways you can run Python within VS Code:
 
-- Select one or more lines, then press `kbstyle(Shift+Enter)` or right-click and select **Run Selection/Line in Python Terminal**. This command is very convenient for testing just a part of a file.
-- Use the **Python: Start REPL** command to open a REPL terminal for the currently selected Python interpreter. In the REPL you can then enter and run lines of code one at a time.
+- Select one or more lines, then press `kbstyle(Shift+Enter)` or right-click and select **Run Selection/Line in Python Terminal**. This command is convenient for testing just a part of a file.
+- Use the **Python: Start REPL** command to open a REPL terminal for the currently selected Python interpreter. In the REPL, you can then enter and run lines of code one at a time.
 
 ## Configure and run the debugger
 
 Let's now try debugging our simple Hello World program.
 
-First, set a breakpoint on line 2 of `hello.py` by placing the cursor on the `print` call and pressing `kb(editor.debug.action.toggleBreakpoint)`. Alternately, just click in the editor's left gutter, next to the line numbers. When you do this, a red circle appears in the gutter.
+First, set a breakpoint on line 2 of `hello.py` by placing the cursor on the `print` call and pressing `kb(editor.debug.action.toggleBreakpoint)`. Alternately, just click in the editor's left gutter, next to the line numbers. When you set a breakpoint, a red circle appears in the gutter.
 
 ![Setting a breakpoint in hello.py](images/tutorial/breakpoint-set.png)
 
@@ -177,7 +177,7 @@ If you restart the debugger, remember that you set `stopOnEntry` in the configur
 
 To stop running a program before it's complete, use the red square stop button on the debug toolbar (`kb(workbench.action.debug.stop)`), or use the **Debug > Stop debugging** menu command.
 
-For full details, see [Debugging configurations](/docs/python/debugging.md), which includes notes on how to use a use a specific Python interpreter for debugging.
+For full details, see [Debugging configurations](/docs/python/debugging.md), which includes notes on how to use a specific Python interpreter for debugging.
 
 > **Tip: Use Logpoints instead of print statements**: Developers often litter source code with `print` statements to quickly inspect variables without necessarily stepping through each line of code in a debugger. In VS Code, you can instead use **Logpoints**. A Logpoint is like a breakpoint except that it logs a message to the console and doesn't stop the program. For more information, see [Logpoints](/docs/editor/debugging.md#logpoints) in the main VS Code debugging article.
 
@@ -224,7 +224,7 @@ If you see the message, "Python interpreter is not found because python.exe is n
 
 ## Install and use packages
 
-Let's now run an example that's a little more interesting. In Python, packages are how you obtain any number of useful code libraries, typically from [PyPI](https://pypi.org/). For this example you use the `matplotlib` and `numpy` packages to create a graphical plot as is commonly done with data science. (Note that `matplotlib` cannot show graphs when running in the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/about) as it lacks the necessary UI support.)
+Let's now run an example that's a little more interesting. In Python, packages are how you obtain any number of useful code libraries, typically from [PyPI](https://pypi.org/). For this example, you use the `matplotlib` and `numpy` packages to create a graphical plot as is commonly done with data science. (Note that `matplotlib` cannot show graphs when running in the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/about) as it lacks the necessary UI support.)
 
 Return to the **Explorer** view (the top-most icon on the left side, which shows files), create a new file called `standardplot.py`, and paste in the following source code:
 
@@ -237,15 +237,15 @@ plt.plot(x, np.sin(x))       # Plot the sine of each x point
 plt.show()                   # Display the plot
 ```
 
-> **Tip**: if you enter the above code by hand, you may find that auto-completions change the names after the `as` keywords when you press Enter at the end of a line. To avoid this, type a space, then Enter.
+> **Tip**: If you enter the above code by hand, you may find that auto-completions change the names after the `as` keywords when you press `kbstyle(Enter)` at the end of a line. To avoid this, type a space, then `kbstyle(Enter)`.
 
 Next, try running the file in the debugger using the "Python: Current file" configuration as described in the last section. (If you still have `"stopOnEntry": true` in that configuration, you need to select the run command again to continue.)
 
 Unless you're using an Anaconda distribution or have previously installed the `matplotlib` package, you should see the message, "ModuleNotFoundError: No module named 'matplotlib'". Such a message indicates that the required package isn't available in your system.
 
-To install the `matplotlib` package (which also installs `numpy` as a dependency), stop the debugger and use the Command Palette to run **Terminal: Create New Integrated Terminal** (`kb(workbench.action.terminal.new)`)). This command opens a command prompt for your selected interpreter. Then enter the following commands as appropriate for your operating system (commands may require elevation if the Python interpreter is installed in a protected area of the file system):
+To install the `matplotlib` package (which also installs `numpy` as a dependency), stop the debugger and use the Command Palette to run **Terminal: Create New Integrated Terminal** (`kb(workbench.action.terminal.new)`)). This command opens a command prompt for your selected interpreter. Then enter the following commands as appropriate for your operating system:
 
-> **Note**: If you are unable to install the package or encounter other problems, please [file an issue on GitHub](https://github.com/Microsoft/vscode-docs/issues) so we can help you investigate.
+> **Note**: The commands may require elevation if the Python interpreter is installed in a protected area of the file system; if you don't have admin privileges on the computer you're using, you may not be allowed to install the package. In that case, you need to use a *virtual environment* instead (see [Environments](/docs/python/environments.md#global-virtual-and-conda-environments)). If you are unable to install the package or encounter other problems, please [file an issue on GitHub](https://github.com/Microsoft/vscode-docs/issues) so we can help you investigate.
 
 ```bash
 # Don't use with Anaconda distributions because they include matplotlib already.
@@ -264,6 +264,12 @@ python -m pip install matplotlib
 Rerun the program now (with or without the debugger) and after a few moments a plot window appears with the output:
 
 ![matplotlib output](images/tutorial/plot-output.png)
+
+### Use a virtual environment
+
+A best practice among Python developers is to avoid installing packages into a global interpreter environment, as we did in the previous section. You instead use a project-specific *virtual environment* that contains a copy of a global interpreter. Once you activate that environment, any packages you then install are isolated from other environments. Such isolation reduces many complications that can arise from conflicting package versions.
+
+For examples of creating and activating a virtual environment and installing packages, see the [Django tutorial](/docs/python/tutorial-django.md) and the [Flask tutorial](/docs/python/tutorial-flask.md).
 
 ## Next steps
 

@@ -4,7 +4,7 @@ Area: python
 TOCTitle: Deploy with containers
 ContentId: e3f4006c-ab3f-4444-909b-fb045afcdf09
 PageTitle: Deploy Python web apps to Azure App Service using Docker containers
-DateApproved: 10/03/2018
+DateApproved: 01/14/2019
 MetaDescription: How to create Docker containers for Python web apps and deploy to Azure App Service
 MetaSocialImage: images/tutorial/social.png
 ---
@@ -18,9 +18,9 @@ If you have any problems, feel free to file an issue for this tutorial in the [V
 
 Docker is a system that allows you to deploy and run apps using **containers** rather than setting up dedicated environments like virtual machines. A container is a lightweight runtime environment that shares the resources of the host operating system with other containers. Docker is the layer that sits above the operating system to manage resources on behalf of containers.
 
-A container is specifically an instance of a Docker **image**, an executable package that contains everything needed to run your app: app code, configuration files, runtimes, and all of app's dependencies. A image can be used to instantiate any number of identical containers, which is especially useful when scaling out a cloud-based web app. Because container images are much smaller than virtual machine images, instances can be started and stopped much more quickly than virtual machines, enabling your app to be highly responsive to varying loads at a minimal cost. (When used to scale web apps, containers are often managed in **clusters**, which are then managed by an orchestration agent such as [Kubernetes](https://wikipedia.org/wiki/Kubernetes).)
+A container is specifically an instance of a Docker **image**, an executable package that contains everything needed to run your app: app code, configuration files, runtimes, and all of app's dependencies. An image can be used to instantiate any number of identical containers, which is especially useful when scaling out a cloud-based web app. Because container images are much smaller than virtual machine images, instances can be started and stopped much more quickly than virtual machines, enabling your app to be highly responsive to varying loads at a minimal cost. (When used to scale web apps, containers are often managed in **clusters**, which are then managed by an orchestration agent such as [Kubernetes](https://wikipedia.org/wiki/Kubernetes).)
 
-Images, for their part, are built in multiple **layers**. The lowest or **base** layers of an image are typically common elements like the Python runtime; the higher layers the contain more specialized elements like your app code. Because of layering, it takes very little time to rebuild an image when changing only the top layer with your app code. Similarly, when you push an image to a **container registry**, an online repository for images from which you can deploy to cloud services like Azure, only the modified layers need be uploaded and redeployed. As a result, using containers has only a very small impact on your develop-test-deploy loop.
+Images, for their part, are built in multiple **layers**. The lowest or **base** layers of an image are typically common elements like the Python runtime; the higher layers the contain more specialized elements like your app code. Because of layering, it takes very little time to rebuild an image when changing only the top layer with your app code. Similarly, when you push an image to a **container registry**, an online repository for images from which you can deploy to cloud services like Azure, only the modified layers need be uploaded and redeployed. As a result, using containers has only a small impact on your develop-test-deploy loop.
 
 You will experience the basics of containers and images in the course of this tutorial. For additional background, including helpful diagrams, refer to the [Docker documentation](https://docs.docker.com/get-started/).
 
@@ -34,7 +34,7 @@ If you don't have an Azure account, [sign up now](https://azure.microsoft.com/fr
 
 ### Visual Studio Code, Docker, and Python runtime
 
-Install the following:
+Install the following software:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Docker Community Edition](https://www.docker.com/community-edition). To verify your installation, run the command `docker --version`, which should show output like `Docker version 18.06.1-ce, build e68fc7a`.
@@ -82,7 +82,7 @@ If you don't already have an app you'd like to work with, use one of the followi
 
 - [python-sample-vscode-flask-tutorial](https://github.com/Microsoft/python-sample-vscode-flask-tutorial), which is the result of following the [Flask Tutorial](/docs/python/tutorial-flask.md).
 
-After verifying that your app runs properly, generate a `requirements.txt` file using `pip freeze > requirements.txt` (which are included in the samples) so that those dependencies can be automatically installed in the Docker image.
+After verifying that your app runs properly, generate a `requirements.txt` file (using `pip freeze > requirements.txt`, for example) so that those dependencies can be automatically installed in the Docker image. The samples each include a `requirements.txt` file.
 
 ## Create a container registry
 
@@ -170,7 +170,7 @@ The following steps summarize the configuration used in the [python-sample-vscod
     #RUN pip install --no-cache-dir -r /requirements.txt
     ```
 
-1. The `uwsgi.ini` file, which is in the `hello_app` folder of the sample, provides configuration arguments for the uwsgi server. For the sample, the configuration below says that the Flask app object is found in the `hello_app/webapp.py` module, and that it's named (that is, "callable" as) `app`. The other value are additional common uwsgi settings:
+1. The `uwsgi.ini` file, which is in the `hello_app` folder of the sample, provides configuration arguments for the uwsgi server. For the sample, the configuration below says that the Flask app object is found in the `hello_app/webapp.py` module, and that it's named (that is, "callable" as) `app`. The other values are additional common uwsgi settings:
 
     ```ini
     [uwsgi]
@@ -284,16 +284,16 @@ With the necessary `Dockerfile` in place, you're ready to build the Docker image
 1. Run and test your container locally by using the following command, replacing `<image_name>` with your specific image, and changing the port numbers as needed. For web apps, you can then open browser to `localhost:<port>` to see the running app.
 
     ```bash
-    # For Django sample
-    docker run --rm -it -p 8000:8000 <image_name>
-
     # For Flask sample
     docker run --rm -it -p 5000:5000 <image_name>
+
+    # For Django sample
+    docker run --rm -it -p 8000:8000 <image_name>
     ```
 
 ### Two useful features of the Docker extension
 
-The Docker extension provides a simple UI to manage and even run your images rather than using the Docker CLI. Just expand the **Image** node in the Docker explorer, right click any image, and select any of the menu items:
+The Docker extension provides a simple UI to manage and even run your images rather than using the Docker CLI. Just expand the **Image** node in the Docker explorer, right-click any image, and select any of the menu items:
 
 ![Managing images with the Docker extension](images/deploy-containers/manage-images.png)
 
@@ -335,11 +335,11 @@ With an image built and pushed to a registry, you can use the Docker extension i
 
     An **App Service Plan** defines the physical resources (an underlying virtual machine) that hosts the running container. For this tutorial, B1 is the least expensive plan that supports Docker containers. (For more information, see [App Service plan overview](https://docs.microsoft.com/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview) in the Azure documentation.)
 
-    The name of the App Service must be unique across all of Azure, so you typically use a company or personal name. For production sites, you typically configure the App Service with a separately-registered domain name.
+    The name of the App Service must be unique across all of Azure, so you typically use a company or personal name. For production sites, you typically configure the App Service with a separately registered domain name.
 
 1. Creating the app service takes a few minutes, and you see progress in VS Code's Output panel.
 
-1. Once completed, you **must** also add a setting named `WEBSITES_PORT` to the App Service to specify the port on which the container is listening, such as 8000 (in the Django sample) or 5000 (in the Flask sample). To do this, switch to the **Azure: App Service** explorer, expand the node for your new App Service (refresh if necessary), then right-click **Application Settings** and select **Add New Setting**. At the prompts enter `WEBSITES_PORT` as the key and the port number for the value.
+1. Once completed, you **must** also add a setting named `WEBSITES_PORT` (notice the plural "WEBSITES") to the App Service to specify the port on which the container is listening, such as 5000 (in the Flask sample) or 8000 (in the Django sample). To do this, switch to the **Azure: App Service** explorer, expand the node for your new App Service (refresh if necessary), then right-click **Application Settings** and select **Add New Setting**. At the prompts enter `WEBSITES_PORT` as the key and the port number for the value.
 
     ![Context menu command on an App Service for Add New Setting](images/deploy-containers/add-app-service-setting.png)
 
@@ -349,7 +349,7 @@ With an image built and pushed to a registry, you can use the Docker extension i
 
 ## Make changes and redeploy
 
-Because you inevitably make changes to your app, you end up rebuilding and redeploying your container many times. Fortunately, the process is very simple:
+Because you inevitably make changes to your app, you end up rebuilding and redeploying your container many times. Fortunately, the process is simple:
 
 1. Make changes to your app and test locally.
 
@@ -388,7 +388,7 @@ From within VS Code, you can view (or "tail") logs from the running site on Azur
 
 Congratulations on completing this walkthrough of deploying a containerized Python app to Azure App Service!
 
-As noted earlier, you can learn more about the Docker and App Service extensions by visiting their respective repositories on GitHub: [vscode-docker](https://github.com/Microsoft/vscode-docker) and [vscode-azureappservice](https://github.com/Microsoft/vscode-azureappservice). Issues and contributions are also very welcome.
+As noted earlier, you can learn more about the Docker and App Service extensions by visiting their respective repositories on GitHub: [vscode-docker](https://github.com/Microsoft/vscode-docker) and [vscode-azureappservice](https://github.com/Microsoft/vscode-azureappservice). Issues and contributions are also welcome.
 
 To learn more about Azure services that you can use from Python, including data storage along with AI and Machine Learning services, visit [Azure Python Developer Center](https://docs.microsoft.com/python/azure/?view=azure-python).
 

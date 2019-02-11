@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: Creating snippets
 ContentId: 79CD9B45-97FF-48B1-8DD5-2555F56206A6
 PageTitle: Creating your own snippets in Visual Studio Code
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: It is easy to add code snippets to Visual Studio Code both for your own use or to share with others on the public Extension Marketplace. TextMate .tmSnippets files are supported.
 ---
 # Creating your own snippets
@@ -132,6 +132,23 @@ For inserting the current date and time:
 * `CURRENT_MINUTE` The current minute
 * `CURRENT_SECOND` The current second
 
+For inserting line or block comments, honoring the current language:
+
+* `BLOCK_COMMENT_START` Example output: in PHP `/*` or in HTML `<!--`
+* `BLOCK_COMMENT_END ` Example output: in PHP `*/` or in HTML `-->`
+* `LINE_COMMENT` Example output: in PHP `//` or in HTML `<!-- -->`
+
+The snippet below inserts `/* Hello World */` in JavaScript files and `<!-- Hello World -->` in HTML files:
+
+```json
+{
+    "hello": {
+        "scope": "javascript,html",
+        "prefix": "hello",
+        "body": "$BLOCK_COMMENT_START Hello World $BLOCK_COMMENT_END"
+    }
+}
+```
 
 ### Variable transforms
 

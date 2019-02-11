@@ -4,7 +4,7 @@ Area: setup
 TOCTitle: macOS
 ContentId: EEADB50A-F5E3-41E9-89DA-35F165196691
 PageTitle: Running Visual Studio Code on macOS
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Get Visual Studio Code up and running on Mac (macOS).
 ---
 # Visual Studio Code on macOS
@@ -29,7 +29,7 @@ You can also run VS Code from the terminal by typing 'code' after adding it to t
 
 >**Note:** If you still have the old `code` alias in your `.bash_profile` (or equivalent) from an early VS Code version, remove it and replace it by executing the **Shell Command: Install 'code' command in PATH** command.
 
-To manually add VS Code to your path:
+To manually add VS Code to your path, you can run the following commands:
 
 ```bash
 cat << EOF >> ~/.bash_profile
@@ -37,6 +37,10 @@ cat << EOF >> ~/.bash_profile
 export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 EOF
 ```
+
+Start a new terminal to pick up your `.bash_profile` changes.
+
+**Note**: The leading slash `\` is required to prevent `$PATH` from expanding during the concatenation. You should remove the leading slash if you want to run the export command directly in a terminal.
 
 ## Touch Bar support
 

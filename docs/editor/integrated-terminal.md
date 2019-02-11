@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: Integrated Terminal
 ContentId: 7B4DC928-2414-4FC7-9C76-E4A13D6675FE
 PageTitle: Integrated Terminal in Visual Studio Code
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Visual Studio Code has an integrated terminal so you can work in the shell of your choice without leaving the editor.
 ---
 # Integrated Terminal
@@ -146,7 +146,20 @@ This can be configured using the `terminal.integrated.rightClickBehavior` settin
 
 ### Forcing key bindings to pass through the terminal
 
-While focus is in the integrated terminal, many key bindings will not work as the keystrokes are passed to and consumed by the terminal itself. The `terminal.integrated.commandsToSkipShell` setting can be used to get around this. It contains an array of command names whose key bindings will skip processing by the shell and instead be processed by the VS Code key binding system. By default, this includes all terminal key bindings in addition to a select few commonly used key bindings.
+While focus is in the integrated terminal, many key bindings will not work as the keystrokes are passed to and consumed by the terminal itself. There is a hardcoded list of commands which skip being processed by the shell and instead get sent to the VS Code keybinding system, the `terminal.integrated.commandsToSkipShell` setting can be used to customize this. Commands can then be added to this list by adding the command name to the list, and removed by adding the command name to the list prefixed with a `-`.
+
+```js
+{
+  "terminal.integrated.commandsToSkipShell": [
+    // Ensure the toggle sidebar visibility keybinding skips the shell
+    "workbench.action.toggleSidebarVisibility"
+    // Send quick open's keybinding to the shell
+    "-workbench.action.quickOpen",
+  ]
+}
+```
+
+Look at the setting details to see the complete list of default commands.
 
 ### Find
 
@@ -248,22 +261,14 @@ This can happen if you run VS Code in compatibility mode which may be turned on 
 
 ### Can I use Cmder's shell with the terminal on Windows?
 
-Yes, to use the [Cmder](http://cmder.net/) shell in VS Code, you need to create a `vscode.bat` file in your cmder path with the following contents (edit the cmder path if necessary):
-
-```bat
-@echo off
-SET CurrentWorkingDirectory=%CD%
-SET CMDER_ROOT=C:\cmder
-CALL "%CMDER_ROOT%\vendor\init.bat"
-CD /D %CurrentWorkingDirectory%
-```
-
-then in your VS Code user settings, add the following to your `settings.json` file:
+Yes, to use the [Cmder](http://cmder.net/) shell in VS Code, you need to add the following settings to your `settings.json` file:
 
 ```json
 "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
-"terminal.integrated.shellArgs.windows": ["/K", "C:\\cmder\\vscode.bat"]
+"terminal.integrated.shellArgs.windows": ["/K", "C:\\cmder\\vendor\\init.bat"]
 ```
+
+You may refer to [Cmder's wiki](https://github.com/cmderdev/cmder/wiki/Seamless-VS-Code-Integration) for more information.
 
 ### Can I use Cygwin's shell with the terminal on Windows?
 

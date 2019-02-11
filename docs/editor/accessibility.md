@@ -4,7 +4,7 @@ Area: editor
 TOCTitle: Accessibility
 ContentId: 62894B41-CC33-400A-8A56-8C761C77B4C7
 PageTitle: Accessibility in Visual Studio Code
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Visual Studio Code user accessibility features.  Learn here about the various ways VS Code aids user accessibility.
 ---
 # Accessibility
@@ -75,6 +75,10 @@ The **Go to Next/Previous Difference** actions (`kb(editor.action.diffReview.nex
 You can press `kb(editor.action.showAccessibilityHelp)` to trigger the **Show Accessibility Help** dialog while in an editor to check the state of various accessibility options in VS Code:
 
 ![accessibility status](images/accessibility/status.png)
+
+## Terminal accessibility
+
+Output in the Integrated Terminal can be navigated through by using the scroll commands available in the Command Palette (press `kbstyle(F1)` and search for "Terminal Scroll").
 
 ## Debugger accessibility
 

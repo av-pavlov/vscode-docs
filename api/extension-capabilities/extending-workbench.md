@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: e0d5bd37-f020-4235-ad81-c977baaeb24f
-DateApproved: 12/6/2018
+DateApproved: 2/6/2019
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Explain how to extend Visual Studio Code's workbench area with custom UI components
@@ -27,9 +27,9 @@ VS Code provides various APIs that allow you to add your own components to the W
 - Editor Group: The built-in [Markdown extension](https://github.com/Microsoft/vscode/tree/master/extensions/markdown-language-features) adds a [Webview](#webview) next to other editors in the Editor Group
 - Status Bar: The [VSCodeVim extension](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) adds a [Status Bar Item](#status-bar-item) in the Status Bar
 
-## View Container
+## Views Container
 
-With the [`contributes.viewContainers`](/api/references/contribution-points#contributes.viewsContainers) Contribution Point, you can add new View Containers that display next to the five built-in View Containers. Learn more at the [Tree View](/api/extension-guides/tree-view) topic.
+With the [`contributes.viewsContainers`](/api/references/contribution-points#contributes.viewsContainers) Contribution Point, you can add new Views Containers that display next to the five built-in Views Containers. Learn more at the [Tree View](/api/extension-guides/tree-view) topic.
 
 ## Tree View
 

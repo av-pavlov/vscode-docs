@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 9b10cda2-4eb0-4989-8f82-23a46b96c1bb
-DateApproved: 12/6/2018
+DateApproved: 2/6/2019
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: A guide to using Tree View in Visual Studio Code extension (plug-in).
@@ -17,7 +17,7 @@ A View Container contains a list of views that is displayed next to the built-in
 
 ![View Container](images/tree-view/view-container.png)
 
-To contribute a View Container, you should first register it using [`contributes.viewContainers`](/api/references/contribution-points#contributes.viewsContainers) Contribution Point in `package.json`. You have to specify following required fields:
+To contribute a View Container, you should first register it using [`contributes.viewsContainers`](/api/references/contribution-points#contributes.viewsContainers) Contribution Point in `package.json`. You have to specify following required fields:
 
 - `id`: The name of the new view container you're creating
 - `title`: The name which will show up at the top of the view container
@@ -25,7 +25,7 @@ To contribute a View Container, you should first register it using [`contributes
 
 ```json
 "contributes": {
-  "viewContainers": {
+  "viewsContainers": {
     "activitybar": [
       {
         "id": "package-explorer",
@@ -164,13 +164,14 @@ vscode.window.registerTreeDataProvider('nodeDependencies', new DepNodeProvider()
 
 See [nodeDependencies.ts](https://github.com/Microsoft/vscode-extension-samples/tree/master/tree-view-sample/src/nodeDependencies.ts) for the implementation.
 
-
 ## TreeView
 
 If you would like to perform some UI operations on the view programatically, you can use `window.createTreeView` instead of `window.registerTreeDataProvider`. This will give access to the view which you can use for performing view operations.
 
 ```typescript
-vscode.window.createTreeView('ftpExplorer', { treeDataProvider: new FtpTreeDataProvider() });
+vscode.window.createTreeView('ftpExplorer', {
+  treeDataProvider: new FtpTreeDataProvider()
+});
 ```
 
 See [ftpExplorer.ts](https://github.com/Microsoft/vscode-extension-samples/tree/master/tree-view-sample/src/ftpExplorer.ts) for the implementation.

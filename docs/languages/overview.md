@@ -4,7 +4,7 @@ Area: languages
 TOCTitle: Overview
 ContentId: AC888642-FBE5-43E5-9DC2-47B197717940
 PageTitle: Language Support in Visual Studio Code
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: In Visual Studio Code we have support for all common languages including smart code completion and debugging.
 ---
 # Programming Languages
@@ -90,7 +90,7 @@ Yes you can! Check out the [example language server](/api/language-extensions/la
 
 ### What if I don't want to create a full language service, can I reuse existing TextMate bundles?
 
-Yes, you can also add support for your favorite language through TextMate colorizers. See the[Syntax Highlight Guide](/api/language-extensions/syntax-highlight-guide.md) in the Extension API section to learn how to integrate TextMate `.tmLanguage` syntax files into VS Code.
+Yes, you can also add support for your favorite language through TextMate colorizers. See the [Syntax Highlight Guide](/api/language-extensions/syntax-highlight-guide.md) in the Extension API section to learn how to integrate TextMate `.tmLanguage` syntax files into VS Code.
 
 ### Can I map additional file extensions to a language?
 

@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 2bb06188-d394-4b98-872c-0bf26c8a674d
-DateApproved: 12/6/2018
+DateApproved: 2/6/2019
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: A guide to
@@ -13,14 +13,14 @@ Syntax highlighting determines the color and style of source code displayed in t
 
 There are two components to syntax highlighting:
 
-* Breaking text into a list of tokens and scopes using a grammar
-* Then using a theme to map these scopes to specific colors and styles
+- Breaking text into a list of tokens and scopes using a grammar
+- Then using a theme to map these scopes to specific colors and styles
 
 This document only discusses the first part: breaking text into tokens and scopes that existing color themes can colorize. For more information about customizing the styling of different scopes in the editor, see the [Color Theme Guide](/api/extension-guides/color-theme#syntax-colors)
 
 ## TextMate grammars
 
-VS Code uses [TextMate grammars][tm-grammars] to break text into a list of tokens. TextMate grammars are a structured collection of [ruby regular expressions](https://macromates.com/manual/en/regular_expressions) and are typically written as a plist or json. You can find a good introduction to TextMate grammars [here](https://www.apeth.com/nonblog/stories/textmatebundle.html), and you can take a look at existing TextMate grammars to learn more about how they work.
+VS Code uses [TextMate grammars][tm-grammars] to break text into a list of tokens. TextMate grammars are a structured collection of [Oniguruma regular expressions](https://macromates.com/manual/en/regular_expressions) and are typically written as a plist or JSON. You can find a good introduction to TextMate grammars [here](https://www.apeth.com/nonblog/stories/textmatebundle.html), and you can take a look at existing TextMate grammars to learn more about how they work.
 
 ### Tokens and scopes
 
@@ -38,29 +38,27 @@ Parent scope information is also used for theming. When a theme targets a scope,
 
 ### Contributing a basic grammar
 
-VS Code supports json TextMate grammars. These are contributed through the `grammars` [contribution point](api/references/contribution-points).
+VS Code supports json TextMate grammars. These are contributed through the `grammars` [contribution point](/api/references/contribution-points).
 
 Each grammar contribution specifies: the identifier of the language the grammar applies to, the top level scope name for the tokens of the grammar, and the relative path to a grammar file. The example below shows a grammar contribution for a fictional `abc` language:
 
 ```json
 {
-    "contributes": {
-        "languages": [
-            {
-                "id": "abc",
-                "extensions": [
-                    ".abc"
-                ]
-            }
-        ],
-        "grammars": [
-            {
-                "language": "abc",
-                "scopeName": "source.abc",
-                "path": "./syntaxes/abc.tmGrammar.json"
-            }
-        ]
-    }
+  "contributes": {
+    "languages": [
+      {
+        "id": "abc",
+        "extensions": [".abc"]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "abc",
+        "scopeName": "source.abc",
+        "path": "./syntaxes/abc.tmGrammar.json"
+      }
+    ]
+  }
 }
 ```
 
@@ -70,36 +68,29 @@ The example `abc` grammar marks the letters `a`, `b`, and `c` as keywords, and n
 
 ```json
 {
-	"scopeName": "source.abc",
-	"patterns": [
-		{ "include": "#expression" }
-	],
-	"repository": {
-		"expression": {
-			"patterns": [
-				{ "include": "#letter" },
-				{ "include": "#paren-expression" }
-			]
-		},
-		"letter": {
-			"match": "a|b|c",
-			"name": "keyword.letter"
-		},
-		"paren-expression": {
-			"begin": "\\(",
-			"end": "\\)",
-			"beginCaptures": {
-				"0": { "name": "punctuation.paren.open" }
-			},
-			"endCaptures": {
-				"0": { "name": "punctuation.paren.close" }
-			},
-			"name": "expression.group",
-			"patterns": [
-				{ "include": "#expression" }
-			]
-		}
-	}
+  "scopeName": "source.abc",
+  "patterns": [{ "include": "#expression" }],
+  "repository": {
+    "expression": {
+      "patterns": [{ "include": "#letter" }, { "include": "#paren-expression" }]
+    },
+    "letter": {
+      "match": "a|b|c",
+      "name": "keyword.letter"
+    },
+    "paren-expression": {
+      "begin": "\\(",
+      "end": "\\)",
+      "beginCaptures": {
+        "0": { "name": "punctuation.paren.open" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.paren.close" }
+      },
+      "name": "expression.group",
+      "patterns": [{ "include": "#expression" }]
+    }
+  }
 }
 ```
 
@@ -124,17 +115,17 @@ a
 The example grammar produces the following scopes (listed left-to-right from most specific to least specific scope):
 
 ```
-a               keyword.letter, souce.abc
-(               punctuation.paren.open, expression.group, souce.abc
-    b           expression.group, souce.abc
-)               punctuation.paren.close, expression.group, souce.abc
+a               keyword.letter, source.abc
+(               punctuation.paren.open, expression.group, source.abc
+    b           expression.group, source.abc
+)               punctuation.paren.close, expression.group, source.abc
 x               source.abc
-(               punctuation.paren.open, expression.group, souce.abc
-    (           punctuation.paren.open, expression.group, expression.group, souce.abc
-        c       keyword.letter, expression.group, expression.group, souce.abc
-        xyz     expression.group, expression.group, souce.abc
-    )           punctuation.paren.close, expression.group, expression.group, souce.abc
-)               punctuation.paren.close, expression.group, souce.abc
+(               punctuation.paren.open, expression.group, source.abc
+    (           punctuation.paren.open, expression.group, expression.group, source.abc
+        c       keyword.letter, expression.group, expression.group, source.abc
+        xyz     expression.group, expression.group, source.abc
+    )           punctuation.paren.close, expression.group, expression.group, source.abc
+)               punctuation.paren.close, expression.group, source.abc
 (               source.abc
 a               keyword.letter, source.abc
 ```
@@ -149,17 +140,17 @@ The `embeddedLanguages` contribution point maps a scope in the embedded language
 
 ```json
 {
-    "contributes": {
-        "grammars": [
-            {
-                "path": "./syntaxes/abc.tmLanguage.json",
-                "scopeName": "souce.abc",
-                "embeddedLanguages": {
-                    "meta.embedded.block.javascript": "source.js"
-                }
-            }
-        ]
-    }
+  "contributes": {
+    "grammars": [
+      {
+        "path": "./syntaxes/abc.tmLanguage.json",
+        "scopeName": "source.abc",
+        "embeddedLanguages": {
+          "meta.embedded.block.javascript": "source.js"
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -195,17 +186,17 @@ Remember, if you are contributing a grammar to a language that VS Code already k
 
 ### Using YAML to write a grammar
 
-As a grammar grows more complex, it can become difficult understand and maintain it as json. If you find yourself writing complex regular expressions or needing to add comments to explain aspects of the grammar, consider using yaml to define your grammar instead.
+As a grammar grows more complex, it can become difficult to understand and maintain it as json. If you find yourself writing complex regular expressions or needing to add comments to explain aspects of the grammar, consider using yaml to define your grammar instead.
 
 Yaml grammars have the exact same structure as a json based grammar but allow you to use yaml's more concise syntax, along with features such as multi-line strings and comments.
 
 ![A yaml grammar using multiline strings and comments](images/syntax-highlighting/yaml-grammar.png)
 
-VS Code can only load json grammars, so yaml based grammars must be converted to json. The [`js-yaml` package](https://npm.org/js-yaml) and command line tool makes this easy.
+VS Code can only load json grammars, so yaml based grammars must be converted to json. The [`js-yaml` package](https://www.npmjs.com/package/js-yaml) and command line tool makes this easy.
 
 ```bash
 # Install js-yaml as a development only dependency in your extension
-$ npm js-yaml --save-dev
+$ npm install js-yaml --save-dev
 
 # Use the command line tool to convert the yaml grammar to json
 $ npx js-yaml syntaxes/abc.tmLanguage.yaml > syntaxes/abc.tmLanguage.json
@@ -219,8 +210,8 @@ Trigger the scope inspector from the command palette with the `Developer: Inspec
 
 ```json
 {
-    "key": "cmd+alt+shift+i",
-    "command": "editor.action.inspectTMScopes"
+  "key": "cmd+alt+shift+i",
+  "command": "editor.action.inspectTMScopes"
 }
 ```
 
@@ -249,17 +240,15 @@ For this example, we'll create a very simple injection grammar that highlights `
 
 ```json
 {
-    "contributes": {
-        "grammars": [
-            {
-                "path": "./syntaxes/injection.json",
-                "scopeName": "todo-comment.injection",
-                "injectTo": [
-                    "source.js"
-                ]
-            }
-        ]
-    }
+  "contributes": {
+    "grammars": [
+      {
+        "path": "./syntaxes/injection.json",
+        "scopeName": "todo-comment.injection",
+        "injectTo": ["source.js"]
+      }
+    ]
+  }
 }
 ```
 
@@ -267,19 +256,19 @@ The grammar itself is a standard TextMate grammar except for the top level `inje
 
 ```json
 {
-    "scopeName": "todo-comment.injection",
-	"injectionSelector": "L:comment.line.double-slash",
-	"patterns": [
-		{
-			"include": "#todo-keyword"
-		}
-	],
-	"repository": {
-		"todo-keyword": {
-			"match": "TODO",
-			"name": "keyword.todo"
-		}
-	}
+  "scopeName": "todo-comment.injection",
+  "injectionSelector": "L:comment.line.double-slash",
+  "patterns": [
+    {
+      "include": "#todo-keyword"
+    }
+  ],
+  "repository": {
+    "todo-keyword": {
+      "match": "TODO",
+      "name": "keyword.todo"
+    }
+  }
 }
 ```
 
@@ -293,20 +282,18 @@ An extension that highlights sql queries in javascript strings for example may u
 
 ```json
 {
-    "contributes": {
-        "grammars": [
-            {
-                "path": "./syntaxes/injection.json",
-                "scopeName": "sql-string.injection",
-                "injectTo": [
-                    "source.js"
-                ],
-                "embeddedLanguages": {
-                    "meta.embedded.inline.sql": "source.sql"
-                }
-            }
-        ]
-    }
+  "contributes": {
+    "grammars": [
+      {
+        "path": "./syntaxes/injection.json",
+        "scopeName": "sql-string.injection",
+        "injectTo": ["source.js"],
+        "embeddedLanguages": {
+          "meta.embedded.inline.sql": "source.sql"
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -314,29 +301,27 @@ An extension that highlights sql queries in javascript strings for example may u
 
 There is one additional complication for injection languages embedded languages: by default, VS Code treats all tokens within a string as string contents and all tokens with a comment as token content. Since features such as bracket matching and auto closing pairs are disabled inside of strings and comments, if the embedded language appears inside a string or comment, these features will also be disabled in the embedded language.
 
-To override this behavior, you can use a `meta.embedded.*` scope to reset VS Code's marking of tokens as string or comment content. It is a good idea to always wrap  embedded language in a `meta.embedded.*` scope to make sure VS Code treats the embedded language properly.
+To override this behavior, you can use a `meta.embedded.*` scope to reset VS Code's marking of tokens as string or comment content. It is a good idea to always wrap embedded language in a `meta.embedded.*` scope to make sure VS Code treats the embedded language properly.
 
 If you can't add a `meta.embedded.*` scope to your grammar, you can alternatively use `tokenTypes` in the grammar's contribution point to map specific scopes to content mode. The `tokenTypes` section below ensures that any content in the `my.sql.template.string` scope is treated as source code:
 
 ```json
 {
-    "contributes": {
-        "grammars": [
-            {
-                "path": "./syntaxes/injection.json",
-                "scopeName": "sql-string.injection",
-                "injectTo": [
-                    "source.js"
-                ],
-                "embeddedLanguages": {
-                    "my.sql.template.string": "source.sql"
-                },
-                "tokenTypes": {
-                    "my.sql.template.string": "other"
-                }
-            }
-        ]
-    }
+  "contributes": {
+    "grammars": [
+      {
+        "path": "./syntaxes/injection.json",
+        "scopeName": "sql-string.injection",
+        "injectTo": ["source.js"],
+        "embeddedLanguages": {
+          "my.sql.template.string": "source.sql"
+        },
+        "tokenTypes": {
+          "my.sql.template.string": "other"
+        }
+      }
+    ]
+  }
 }
 ```
 

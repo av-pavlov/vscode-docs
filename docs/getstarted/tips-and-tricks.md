@@ -4,7 +4,7 @@ Area: getstarted
 TOCTitle: Tips and Tricks
 ContentId: 9bbbe55d-cf81-428f-8a9f-4f60280cb874
 PageTitle: Visual Studio Code Tips and Tricks
-DateApproved: 12/12/2018
+DateApproved: 2/6/2019
 MetaDescription: Visual Studio Code Tips and Tricks for power users.
 ---
 # Visual Studio Code Tips and Tricks
@@ -167,6 +167,8 @@ You can search for shortcuts and add your own keybindings to the `keybindings.js
 See more in [Key Bindings for Visual Studio Code](/docs/getstarted/keybindings.md).
 
 ### Tune your settings
+
+By default VS Code shows the Settings editor, you can find settings listed below in a search bar, but you can still edit the underlying `settings.json` file by using the **Open Settings (JSON)** command or by changing your default settings editor with the `workbench.settings.editor` setting.
 
 Open User Settings `settings.json`
 
@@ -515,7 +517,7 @@ Keyboard Shortcut: `kb(editor.action.moveLinesUpAction)` or `kb(editor.action.mo
 
 ### Shrink / expand selection
 
-Keyboard Shortcut: `kb(editor.action.smartSelect.shrink)` or `kb(editor.action.smartSelect.grow)`
+Keyboard Shortcut: `kb(editor.action.smartSelect.shrink)` or `kb(editor.action.smartSelect.expand)`
 
 ![shrink expand selection](images/tips-and-tricks/shrink_expand_selection.gif)
 

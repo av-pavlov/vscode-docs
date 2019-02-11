@@ -60,7 +60,7 @@ The Python extension can apply a number of different linters including Pylint, P
 
 ## Debugging
 
-No more `print` statement debugging! Set breakpoints, inspect data, and use the debug console as you run your program step by step. Debug a number of different type of Python applications, including multi-threaded, web, and remote applications.
+No more `print` statement debugging! Set breakpoints, inspect data, and use the debug console as you run your program step by step. Debug a number of different types of Python applications, including multi-threaded, web, and remote applications.
 
 For Python-specific details, including setting up your `launch.json` configuration and remote debugging, see [Debugging](/docs/python/debugging.md). General VS Code debugging information is found in the [debugging document](/docs/editor/debugging.md).
 
@@ -102,7 +102,11 @@ If you open a [Jupyter notebook](http://jupyter.org/) file (`.ipynb`) in VS Code
 
 ![Jupyter notebook running in VS Code and the Python interactive window](images/python/jupyter.png)
 
-For more information, see [Editing - Jupyter code cells](/docs/python/editing.md#jupyter-code-cells).
+You can also connect to a remote Jupyter server for running the code.
+
+Furthermore, importing a notebook into VS Code allows you to use all of VS Code's debugging capabilities. You can then save the notebook file and opening it again as a notebook in Jupyter or upload to a service like [Azure Notebooks](https://docs.microsoft.com/azure/notebooks).
+
+For more information, see [Jupyter support](/docs/python/jupyter-support.md).
 
 ## Unit testing
 
