@@ -4,7 +4,7 @@ Area: cpp
 TOCTitle: Tutorial
 ContentId: 7efec972-6556-4526-8aa8-c73b3319d612
 PageTitle: Get Started with C++ and Mingw-w64 in Visual Studio Code
-DateApproved: 11/26/2018
+DateApproved: 02/11/2019
 MetaDescription: Configuring the C++ extension in Visual Studio Code to target g++ and gdb on a Mingw-w64 installation
 MetaSocialImage: images/tutorial/social.png
 ---
@@ -47,34 +47,31 @@ By starting VS Code in a folder, that folder becomes your "workspace". VS Code s
 
 ## Configure the compiler path
 
-Press **Ctrl+Shift+P** to open the Command Palette. Start typing "C/C++" and then choose **Edit Configurations** from the list of suggestions. VS Code creates a file called `c_cpp_properties.json` and populates it with some default settings. Find the compilerPath setting and paste in the path to g++.exe. In a default Mingw-w64 installation, for example for version 8.1.0, it will be something like this, depending on which specific version you have installed: `C:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin\gcc.exe`.
+Press **Ctrl+Shift+P** to open the Command Palette. Start typing "C/C++" and then choose **Edit Configurations** from the list of suggestions. VS Code creates a file called `c_cpp_properties.json` and populates it with some default settings. Find the `compilerPath` setting and paste in the path to `g++.exe`. In a default Mingw-w64 installation, for example for version 8.1.0, it will be something like this, depending on which version you have installed: `C:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin\gcc.exe`.
 
-The extension can now infer the path to the mingw-w64 include folder, which it needs for IntelliSense support. There is no need to specify it explicitly in the `includePath` setting unless you have additional or non-standard paths in your code base. 
-
-Your complete `tasks.json` file should look something like this:
+The extension can now infer the path to the mingw-w64 include folder, which it needs for IntelliSense support. There is no need to specify it explicitly in the `includePath` setting unless you have additional or non-standard paths in your code base. In fact, we recommend that you delete the setting entirely if you don't need it. The only other change is to set `intelliSenseMode` to `gcc-x64"`. Your complete `c_cpp_properties.json` file should look something like this:
 
 ```json
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
+    "configurations": [
         {
-            "label": "build hello world",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-g",
-                "-o",
-                "helloworld",
-                "main.cpp"
+            "name": "Win32",
+            "defines": [ 
+                "_DEBUG",
+                "UNICODE"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "compilerPath": "C:/Program Files/mingw-w64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/bin/",
+            "intelliSenseMode": "gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
             }
         }
-    ] 
+    ],
+    "version": 4
 }
 ```
 
@@ -82,7 +79,7 @@ Your complete `tasks.json` file should look something like this:
 
 Next, let's edit `tasks.json` to add a build task for our program. The `label` value will be used to identify the task in the VS Code Command Palette; you can name this whatever you like. The `args` array specifies the command line arguments that will be passed to the compiler that was specified in the previous step. These arguments must be specified in the order expected by the compiler. 
 
-The `group` value specifies that this task will be run when you press **Ctrl+Alt+B**.
+The `"isDefault": true` value in the `group` object specifies that this task will be run when you press **Ctrl+Alt+B**.
 
 Your complete `tasks.json` file should look something like this:
 
@@ -112,7 +109,7 @@ Your complete `tasks.json` file should look something like this:
 Next, we'll configure VS Code to launch gdb when we press *F5* to debug the program. Note that
 the program name `helloworld.exe` matches what we specified in `tasks.json`. You will need to adjust your `miDebuggerPath` value to exactly match the path to your Mingw-w64 installation. 
 
-By default, the C++ extension adds a breakpoint to the first line of `main`. The `stopAtEntry` value is set to `true` to cause the debugger to stop on that breakpoint. You can set this to `false` if you prefer tto ignore it.
+By default, the C++ extension adds a breakpoint to the first line of `main`. The `stopAtEntry` value is set to `true` to cause the debugger to stop on that breakpoint. You can set this to `false` if you prefer to ignore it.
 
 Your complete `launch.json` file should look something like this:
 

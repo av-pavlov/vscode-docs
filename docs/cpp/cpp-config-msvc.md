@@ -24,13 +24,16 @@ To successfully complete this tutorial, you must do the following:
 1. Install the Microsoft C++ (MSVC) compiler toolset. 
     a. If you have a recent version of Visual Studio, open the Visual Studio Installer from the Windows Start menu and verify that the C++ workload is checked. 
     b. Download the standalone toolset by clicking the Visual Studio Build Tools link on the [Downloads page](https://visualstudio.microsoft.com/downloads/#other) and follow the prompts.
-2. 
+ 
 
-## Start VS Code in a workspace folder
+## Start VS Code from a developer command prompt in a workspace folder
 
-At a command prompt or terminal, create an empty folder called "hello" or whatever you like, navigate into it, and open VS Code (`code`) in that folder (`.`) by entering the following commands:
+To use VS Code with MSVC, you must start VS Code from a developer command prompt. (An ordinary Windows command prompt, or a Bash prompt, does not have the necessary environment variables set.)
 
-```bash
+1. To open the developer command prompt, start typing "Developer" in the Windows Start menu, and you should see it appear in the list of suggestions. The exact name depends on which version of Visual Studio or the Visual Studio Build Tools you have installed. Click on the entry to open the prompt. 
+1. Next, create an empty folder called "hello" or whatever you like, navigate into it, and open VS Code (`code`) in that folder (`.`) by entering the following commands:
+
+```cmd
 mkdir hello
 cd hello
 code .
@@ -119,7 +122,9 @@ Finally, we'll configure VS Code to launch the Visual Studio debugger when we pr
 the program name `helloworld.exe` matches what we specified in `tasks.json`. 
 *[Note to reviewers: does cppvsdbg actually mean the VS debugger and if so, what is cppdbg and does it come with the standalone build tools?]*
 
-By default, the C++ extension adds a breakpoint to the first line of `main`. The `stopAtEntry` value is set to `true` to cause the debugger to stop on that breakpoint. You can set this to `false` if you prefer tto ignore it.
+By default, the C++ extension adds a breakpoint to the first line of `main`. The `stopAtEntry` value is set to `true` to cause the debugger to stop on that breakpoint. You can set this to `false` if you prefer tto ignore it. 
+
+Your complete `launch.json` file should look something like this:
 
 
 ```json
