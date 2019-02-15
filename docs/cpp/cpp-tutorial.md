@@ -3,9 +3,9 @@ Order: 1
 Area: cpp
 TOCTitle: Tutorial
 ContentId: 7efec972-6556-4526-8aa8-c73b3319d612
-PageTitle: Get Started with C++ and Mingw-w64 in Visual Studio Code
+PageTitle: Get Started with C++ in Visual Studio Code
 DateApproved: 11/26/2018
-MetaDescription: A C++ hello world tutorial using the C++ extension in Visual Studio Code to target g++ and gdb on a Mingw-w64 installation
+MetaDescription: A C++ hello world tutorial using the C++ extension in Visual Studio Code
 MetaSocialImage: images/tutorial/social.png
 ---
 # Getting Started with C++ in VS Code
@@ -25,11 +25,11 @@ To successfully complete this tutorial, you must first do the following:
 1. Configure VS code for Windows to target one of these environments:
     a. [the Microsoft C++ toolset (MSVC)](cpp-config-msvc.md)
     b. [gcc on Mingw-w64](cpp-config-mingw.md)
-    c. [gcc on Windows Subsystem for Linux]()
+    c. [gcc on Windows Subsystem for Linux](cpp-config-wsl.md)
 
 ## Navigate to your workspace
 
-If you followed the configuration steps in one of the tutorials in the Prerequisites section, you now have a folder called "hello" on your local machine. That folder contains a .vscode subfolder which contains your configuration files. This folder is your *workspace*. Navigate to it now in a command prompt and type `code .` to open the workspace in VS Code. 
+If you followed the configuration steps in one of the tutorials in the Prerequisites section, you now have a folder called "hello" on your local machine. That folder contains a .vscode subfolder which contains your configuration files. This folder is your *workspace*. Navigate to it now in a command prompt and type `code .` to open the workspace in VS Code. For MSVC, be sure to use a developer command prompt; press the Windows Start button, then type "developer", and you should see it appear in the results list.
 
 ## Create a source file
 
@@ -64,6 +64,11 @@ In your new `main.cpp` file, hover over `vector` or `string` to see type informa
 
 If you configured your workspace according to the instructions in the Prerequisites, you have already defined a default build task that will compiler main.cpp. To run the task, type **Ctrl+Shift+B**. 
 
-*[Note to reviewers: my msvc tasks.json doesn't seem to like the "isDefault" setting. am i doing something wrong there?]* 
+You should see the integrated Terminal window appear below the code editor. It shows output from the compiler that indicates whether the build succeeded or failed. For an MSVC build, the output looks something like this:
 
-You should see the Terminal window appear with output from the compiler that indicates whether the build succeeded or failed. 
+![Build output in terminal](images/msvc-build-output.png)
+
+Notice the four tabs at the top of the window. The **Terminal** tab is an integrated console for your environment. Typicallly this is a Developer Command Prompt console for MSVC or a Bash console for Linux/Mingw; however, you can specify any console you like. The **Debug Console** tab shows output produced by the debugger when you run the program. The **Output** tab shows output from various tools and extensions. The **Problems** tab shows messages from Visual Studio Code when it detects problems with the workspace. 
+
+Go ahead and press a key to close the terminal. You are now ready to debug. Press **F5** or 
+
