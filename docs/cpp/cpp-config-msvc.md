@@ -43,7 +43,7 @@ code .
 ```
 By starting VS Code in a folder, that folder becomes your "workspace". VS Code stores user settings that are specific to that workspace in `.vscode/settings.json`, which are separate from user settings that are stored globally. In this tutorial, we'll add three additional files to the `.vscode` folder to configure the workspace to target MSVC:
 
-- `c_cpp_properties.json` to specify the compiler and include paths.
+- `c_cpp_properties.json` to specify the compiler path
 - `tasks.json` to specify how to build the executable
 - `launch.json` to specify debugger settings
 
