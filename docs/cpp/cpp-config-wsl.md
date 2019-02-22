@@ -222,6 +222,12 @@ If you are running 32-bit VS Code add this line:
 
 This same panel is also used for source control, debugging, searching and replacing text, and managing extensions. The buttons on the left control those views. We'll look at the **Debug View** later in this tutorial. You can find out more about the other views in the VS Code documentation.
 
+## Explore IntelliSense
+
+In your new `helloworld.cpp` file, hover over `vector` or `string` to see type information. After the declaration of the `msg` variable, start typing `msg.` as you would when calling a member function. You should immediately see a completion list that shows all the member functions, and a window that shows the type information for the `msg` object:
+
+![Statement completion IntelliSense](images/cpp-intellisense-vector.png)
+
 ## Get the path to the system headers
 
 Now that we have a source file, we can use it to easily get the Windows path to the system headers. We need to specify this value in the file mappings in `launch.json` file so that gdb can step into system headers if you press **F11** during debugging.

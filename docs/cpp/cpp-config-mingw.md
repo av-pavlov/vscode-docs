@@ -24,7 +24,7 @@ To successfully complete this tutorial, you must do the following:
 
 1. Install [Mingw-w64](http://mingw-w64.org/doku.php/download/mingw-builds) to a folder that has no spaces in its path (in other words, NOT the default location of "C:/Program Files/").
 
-1. Install a *nix shell program such as Bash. If you have installed Git for Windows, you already have a Bash shell that the extension can discover and use for its integrated Terminal. Another option is [MSYS2](https://sourceforge.net/projects/msys2/). 
+1. Install a *nix shell program such as Bash. If you have installed Git for Windows, you already have a Bash shell that the extension can discover and use for its integrated Terminal. If you don't have Git for Windows installed, then you can install bash.exe as part of [MSYS2](https://sourceforge.net/projects/msys2/). 
 1. Add the paths to your Bash shell and to your mingw-w64 `bin` folder to the Windows PATH environment variable. The extension will pass this environment variable to the Bash shell when it opens it.
 
 
@@ -175,6 +175,12 @@ Your complete `launch.json` file should look something like this:
 ![File Explorer](images/file-explorer-mingw.png)
 
 This same panel is also used for source control, debugging, searching and replacing text, and managing extensions. The buttons on the left control those views. We'll look at the **Debug View** later in this tutorial. You can find out more about the other views in the VS Code documentation.
+
+## Explore IntelliSense
+
+In your new `helloworld.cpp` file, hover over `vector` or `string` to see type information. After the declaration of the `msg` variable, start typing `msg.` as you would when calling a member function. You should immediately see a completion list that shows all the member functions, and a window that shows the type information for the `msg` object:
+
+![Statement completion IntelliSense](images/cpp-intellisense-vector.png)
 
 ## Build the program
 
