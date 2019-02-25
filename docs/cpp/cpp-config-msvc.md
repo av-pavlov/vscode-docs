@@ -28,7 +28,7 @@ To successfully complete this tutorial, you must do the following:
 
 ## Start VS Code from a developer command prompt in a workspace folder
 
-To use VS Code with MSVC, you must start VS Code from a developer command prompt. (An ordinary Windows command prompt, or a Bash prompt, does not have the necessary environment variables set.)
+To build and debug code with MSVC in VS Code, the easiest way to do so is to start VS Code from a "Developer Command Prompt" for Visual Studio. (An ordinary Windows command prompt, or a Bash prompt, does not have the necessary environment variables set.)
 
 1. To open the developer command prompt, start typing "Developer" in the Windows Start menu, and you should see it appear in the list of suggestions. The exact name depends on which version of Visual Studio or the Visual Studio Build Tools you have installed. Click on the entry to open the prompt. 
 
@@ -47,11 +47,11 @@ By starting VS Code in a folder, that folder becomes your "workspace". VS Code s
 - `tasks.json` to specify how to build the executable
 - `launch.json` to specify debugger settings
 
-## Configure the compiler path
+## Configure IntelliSense
 
-1. Press **Ctrl+Shift+P** to open the **Command Palette**. Start typing "C/C++" and then choose **Edit Configurations** from the list of suggestions. VS Code creates a file called `c_cpp_properties.json` and populates it with some default settings. The `compilerPath` setting is the most important setting in yor configuration. Find the `compilerPath` setting and paste in the path to cl.exe. In a default Visual Studio 2017 Build Tools installation, it will be something like this, depending on which specific version you have installed: `C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64`.
+1. Press **Ctrl+Shift+P** to open the **Command Palette**. Start typing "Edit Config" and then choose **C/C++: Edit Configurations...** from the list of suggestions. VS Code creates a file called `c_cpp_properties.json` and populates it with some default settings. If you have Visual Studio installed, the Microsoft C/C++ Extension should detect it and automatically populate the `compilerPath` setting for you. If not, you should add or update the `compilerPath` setting and paste in the path to cl.exe. In a default Visual Studio 2017 Build Tools installation, it will be something like this, depending on which specific version you have installed: `C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe`.
 
-1. Change the `intelliSenseMode` value to `"msvc-x64"`.
+1. Ensure the `intelliSenseMode` value is set to `"msvc-x64"`.
  
 The extension can now infer the path to the MSVC include folder, which it needs for IntelliSense support. There is no need to specify the `includePath` value explicitly unless you have additional paths to header files in your code base. 
 
@@ -64,17 +64,14 @@ Your complete `c_cpp_properties.json` file should like something like this:
             "name": "Win32",
             "defines": [ 
                 "_DEBUG",
-                "UNICODE"
+                "UNICODE",
+                "_UNICODE"
             ],
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe",
+            "windowsSdkVersion": "10.0.17763.0",
             "intelliSenseMode": "msvc-x64",
-            "browse": {
-                "path": [
-                    "${workspaceFolder}"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4
@@ -83,16 +80,13 @@ Your complete `c_cpp_properties.json` file should like something like this:
 
 ## Create a build task
 
-Next, let's edit `tasks.json` to add a build task for our program. The `label` value will be used in the VS Code Command Palette and can be whatever name you like. The `command` value says that we are using `cl.exe`, the MSVC compiler. The `args` array specifies the command line arguments that will be passed to the compiler that was specified in the previous step. They must appear in the order expected by the compiler. Note that currently you must use a dash (for example, -EHsc) before any [MSVC compiler options](https://docs.microsoft.com/en-us/cpp/build/reference/compiler-options), even though the compiler itself also allows slashes (for example, /EHsc). In this example, we are specifying the exception handling mode (EHsc) and telling the compiler to produce a debug build with symbols (Zi). The `-o` argument tells the compiler to name the executable "helloworld.exe". 
-
-> [!NOTE]
-> The `-o` argument is deprecated, but we have to use it here due to an issue with how the C++ extension handles the `-out` argument.
+Next, let's edit `tasks.json` to add a build task for our program. The `label` value will be used in the VS Code Command Palette and can be whatever name you like. The `command` value says that we are using `cl.exe`, the MSVC compiler. The `args` array specifies the command line arguments that will be passed to the compiler that was specified in the previous step. They must appear in the order expected by the compiler.  In this example, we are specifying the exception handling mode (EHsc) and telling the compiler to produce a debug build with symbols (Zi). The `/Fe:` argument tells the compiler to name the executable "helloworld.exe". 
 
 The `group` value specifies that this task will be run when you press **Ctrl+Alt+B**.
 
 Your complete `tasks.json` file should look something like this:
 
-```json
+```jsonc
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
@@ -103,11 +97,11 @@ Your complete `tasks.json` file should look something like this:
             "type": "shell",
             "command": "cl.exe",
             "args": [
-                "-EHsc",
-                "-Zi",               
-                "main.cpp",
-                "-o",
-                "helloworld.exe"
+                "/EHsc",
+                "/Zi",               
+                "/Fe:",
+                "helloworld.exe",
+                "main.cpp"
             ],
             "group":  {
                 "kind": "build",
@@ -127,7 +121,7 @@ Your complete `tasks.json` file should look something like this:
 
 ## Configure debug settings
 
-Finally, we'll configure VS Code to launch the Visual Studio debugger when we press *F5* to debug the program. Note that
+Finally, we'll configure VS Code to launch the Visual Studio debugger when we press <kbd>F5</kbd> to debug the program. Note that
 the program name `helloworld.exe` matches what we specified in `tasks.json`. 
 
 By default, the C++ extension adds a breakpoint to the first line of `main`. The `stopAtEntry` value is set to `true` to cause the debugger to stop on that breakpoint. You can set this to `false` if you prefer to ignore it. 
@@ -135,10 +129,9 @@ By default, the C++ extension adds a breakpoint to the first line of `main`. The
 Your complete `launch.json` file should look something like this:
 
 
-```json
+```jsonc
    "version": "0.2.0",
     "configurations": [
-        
         {
             "name": "(msvc) Launch",
             "type": "cppvsdbg",
@@ -196,7 +189,7 @@ In your new `helloworld.cpp` file, hover over `vector` or `string` to see type i
 
 1. To run the build task that you defined in tasks.json, press **Ctrl+Shift+B** or from the main menu choose **View > Command Palette** and start typing "Tasks: Run Build Task". The option will appear before you finish typing. 
 
-> [!NOTE] If you see an error message that looks like this: */bin/bash: cl.exe: command not found* it means you have not started VS Code from a developer command prompt. See the first section of this tutorial for more information.
+> [!NOTE] If you see an error message that looks like this: *cl.exe: command not found* it means you have not started VS Code from a developer command prompt. See the first section of this tutorial for more information.
 
 1. When the task starts, you should see the integrated Terminal window appear below the code editor. After the task completes, the terminal shows output from the compiler that indicates whether the build succeeded or failed. For a successful MSVC build, the output looks something like this:
 
@@ -207,15 +200,6 @@ In your new `helloworld.cpp` file, hover over `vector` or `string` to see type i
 ## Start a debugging session
 
 1. You are now ready to run the program. Press **F5** or from the main menu choose **Debug > Start Debugging**. Before we start stepping through the code, let's take a moment to notice several changes in the user interface: 
-
-- The Terminal shows the command line that was used to start gdb. It shows the paths to the C++ extension, as well as to our mingw-w64 installation. In general, we should never need to be concerned with the details here:
-
-    ```cmd
-    $ env "c:\Users\satyan\.vscode\extensions\ms-vscode.cpptools-0.21.0\debugAdapters\bin\WindowsDebugLauncher.exe" --std
-    in=Microsoft-MIEngine-In-slkzoloe.km0 --stdout=Microsoft-MIEngine-Out-b2nqrdmk.cc2 --stderr=Microsoft-MIEngine-Error-
-    f42jy5qt.jfs --pid=Microsoft-MIEngine-Pid-32dwsmv3.tuh --dbgExe=C:/mingw-w64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw6
-    4/bin/gdb.exe --interpreter=mi
-    ```
 
 - The code editor highlights the first line in the `main` method. This is a breakpoint that the C++ extension automatically sets for you: 
 
