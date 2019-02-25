@@ -9,7 +9,7 @@ MetaDescription: To extend Visual Studio Code, your extension (plug-in) declares
 
 # Contribution Points
 
-**Contribution Points** is a set of JSON declarations that you make in the `contributes` field of the `package.json` [Extension Manifest](/api/references/extension-manifest). Your extension registers **Contribution Points** to extend various functionalities within Visual Studio Code. Here is a list of all available **Contribution Points**:
+**Contribution Points** are a set of JSON declarations that you make in the `contributes` field of the `package.json` [Extension Manifest](/api/references/extension-manifest). Your extension registers **Contribution Points** to extend various functionalities within Visual Studio Code. Here is a list of all available **Contribution Points**:
 
 - [`configuration`](/api/references/contribution-points#contributes.configuration)
 - [`commands`](/api/references/contribution-points#contributes.commands)
@@ -126,6 +126,7 @@ Currently extension writers can contribute to:
 - [SCM change title](/api/extension-guides/scm-provider#menus) menus - `scm/change/title`
 - The [View title menu](/api/references/contribution-points#contributes.views) - `view/title`
 - The [View item menu](/api/references/contribution-points#contributes.views) - `view/item/context`
+- The macOS Touch Bar - `touchBar`
 
 > **Note:** When a command is invoked from a (context) menu, VS Code tries to infer the currently selected resource and passes that as a parameter when invoking the command. For instance, a menu item inside the Explorer is passed the URI of the selected resource and a menu item inside an editor is passed the URI of the document.
 

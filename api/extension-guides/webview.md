@@ -505,9 +505,9 @@ In general, webviews should be as restrictive as possible in loading local resou
 
 Webview can use CSS to change their appearance based on VS Code's current theme. VS Code groups themes into three categories, and adds a special class to the `body` element to indicate the current theme:
 
-- `vscode-light` — Light themes.
-- `vscode-dark` — Dark themes.
-- `vscode-high-contrast` — High contrast themes.
+- `vscode-light` - Light themes.
+- `vscode-dark` - Dark themes.
+- `vscode-high-contrast` - High contrast themes.
 
 The following CSS changes the text color of the webview based on the user's current theme:
 
@@ -535,11 +535,13 @@ code {
 }
 ```
 
-Review the [Theme Color Reference](/api/references/theme-color) for the available theme variables. The following font related variables are also defined:
+Review the [Theme Color Reference](/api/references/theme-color) for the available theme variables.
 
-- `-vscode-editor-font-family` — Editor font family (from the `editor.fontFamily` setting).
-- `-vscode-editor-font-weight` — Editor font size (from the `editor.fontWeight` setting).
-- `-vscode-editor-font-size` — Editor font weight (from the `editor.fontWeight` setting).
+The following font related variables are also defined:
+
+- `-vscode-editor-font-family` - Editor font family (from the `editor.fontFamily` setting).
+- `-vscode-editor-font-weight` - Editor font size (from the `editor.fontWeight` setting).
+- `-vscode-editor-font-size` - Editor font weight (from the `editor.fontWeight` setting).
 
 ## Scripts and message passing
 
@@ -604,7 +606,7 @@ Webview scripts can do just about anything that a script on a normal webpage can
 
 An extension can send data to its webviews using `webview.postMessage()`. This method sends any JSON serializable data to the webview. The message is received inside the webview through the standard `message` event.
 
-To demonstrate this, let's add a new command to **Cat Coding** that instructs the currently coding cat to refactor their code (thereby reducing the total number of lines). The new `catCoding.doRefactor` command use `postMessage` to send the instruction to the current webview, and `window.addEventListener('message' event => { ... })` inside the webview itself to handle the message:
+To demonstrate this, let's add a new command to **Cat Coding** that instructs the currently coding cat to refactor their code (thereby reducing the total number of lines). The new `catCoding.doRefactor` command use `postMessage` to send the instruction to the current webview, and `window.addEventListener('message', event => { ... })` inside the webview itself to handle the message:
 
 ```ts
 export function activate(context: vscode.ExtensionContext) {
